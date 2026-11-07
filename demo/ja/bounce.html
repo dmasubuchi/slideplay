@@ -17,7 +17,7 @@ window.slideDeck = GenericSlides.createDeck({
   id: 'bounce',
   title: 'slideplay を数字で見る',
   label: 'バウンス',
-  home: '../../index.ja.html',
+  home: '../../catalog.ja.html',
   color: '#d9480f',
   motion: { send: true, entry: 'bounce', point: true },
   sections: [
@@ -37,23 +37,23 @@ window.slideDeck = GenericSlides.createDeck({
       ],
       notes: 'このデモを含むコミットで数えた。行数：wc -l player/player.js が 4,379。大きさ：wc -c が 273,167 バイト、273.2 KB（1 KB を 1,000 バイトとして）を 273 と表示。依存：なし（README：ビルドも CDN もなし）。' },
 
-    { id: 'b03', type: 'bars', section: 'A', title: '行数の多いフォルダー、上位5つ', minutes: 1, max: 15824,
+    { id: 'b03', type: 'bars', section: 'A', title: '行数の多いフォルダー、上位5つ', minutes: 1, max: 16177,
       items: [
-        { label: 'tests/', value: 15824, display: '15824' },
+        { label: 'tests/', value: 16177, display: '16177' },
         { label: 'player/', value: 4379, display: '4379' },
         { label: 'editor/', value: 1860, display: '1860' },
         { label: 'demo/', value: 634, display: '634' },
-        { label: 'examples/', value: 546, display: '546' },
+        { label: 'scripts/', value: 551, display: '551' },
       ],
-      notes: 'このデモを含むコミットで数えた。git ls-files が出す81ファイルの改行の数（wc -l と同じ）を、最上位のフォルダーごとに足した。行数の多い上位5つのフォルダー（次は README.md 249、README.ja.md 243、CONTRACT.md 223）。棒の長さは値 ÷ 15,824。数字は、欄に収めるためにカンマなしで書いた。' },
+      notes: 'このデモを含むコミットで数えた。git ls-files が出す84ファイルの改行の数（wc -l と同じ）を、最上位のフォルダーごとに足した。行数の多い上位5つのフォルダー（次は examples/ 546、index.html 349、index.ja.html 343）。棒の長さは値 ÷ 16,177。数字は、欄に収めるためにカンマなしで書いた。' },
 
-    { id: 'b04', type: 'stat', section: 'B', title: '試験は1,209本', minutes: 1,
+    { id: 'b04', type: 'stat', section: 'B', title: '試験は1,243本', minutes: 1,
       items: [
-        { value: '1,165', label: '通常', sub: 'pytest -m "not webkit"' },
+        { value: '1,199', label: '通常', sub: 'pytest -m "not webkit"' },
         { value: '44', label: 'WebKit', sub: '参考。入れなくてもよい' },
-        { value: '1,209', label: '合計', sub: 'pytest --collect-only -m ""' },
+        { value: '1,243', label: '合計', sub: 'pytest --collect-only -m ""' },
       ],
-      notes: 'このデモを含むコミットで数えた（このデモの試験も入る）。python3 -m pytest --collect-only -q -m "not webkit" が 1,165 本（44 本を除外）、-m webkit が 44 本、-m "" が 1,209 本。pytest.ini の既定が -m "not webkit" なので、合計には -m "" が要る。WebKit の試験は参考で、失敗しても完成の条件ではない。' },
+      notes: 'このデモを含むコミットで数えた（このデモの試験も入る）。python3 -m pytest --collect-only -q -m "not webkit" が 1,199 本（44 本を除外）、-m webkit が 44 本、-m "" が 1,243 本。pytest.ini の既定が -m "not webkit" なので、合計には -m "" が要る。WebKit の試験は参考で、失敗しても完成の条件ではない。' },
 
     { id: 'b05', type: 'bars', section: 'B', title: 'ファイルごとの試験数、上位5つ', minutes: 1, max: 115,
       items: [
@@ -63,7 +63,7 @@ window.slideDeck = GenericSlides.createDeck({
         { label: 'player_core', value: 74, display: '74' },
         { label: 'catalog', value: 63, display: '63' },
       ],
-      notes: 'このデモを含むコミットで数えた。pytest --collect-only -q -m ""（1,209本すべて）をファイルごとに数えた。名前は tests/test_<名前>.py。試験が入っているファイルは35。' },
+      notes: 'このデモを含むコミットで数えた。pytest --collect-only -q -m ""（1,243本すべて）をファイルごとに数えた。名前は tests/test_<名前>.py。試験が入っているファイルは35。' },
 
     { id: 'b06', type: 'stat', section: 'C', title: '約束は小さい', minutes: 1,
       items: [

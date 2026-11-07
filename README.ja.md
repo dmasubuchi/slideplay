@@ -2,7 +2,7 @@
 
 [English](README.md) | 日本語
 
-デモ：<https://dmasubuchi.github.io/slideplay/>（日本語の目次は <https://dmasubuchi.github.io/slideplay/index.ja.html>。このプレイヤーで動く紹介のデッキと見本）
+デモと紹介：<https://dmasubuchi.github.io/slideplay/>（日本語は <https://dmasubuchi.github.io/slideplay/index.ja.html>）。この README の内容と、スライドの目次へのリンクが載っている。スライドの目次は <https://dmasubuchi.github.io/slideplay/catalog.ja.html>（英語は <https://dmasubuchi.github.io/slideplay/catalog.html>）で、このプレイヤーで動く紹介のデッキと見本が並ぶ
 
 slideplay は、HTML のスライドを、同じ操作で発表・閲覧できる共通のプレイヤー。1ファイル（`player/player.js`）・依存なし・CSS 込み・`file://` で動く。
 
@@ -210,6 +210,7 @@ python3 -m pytest -m "not webkit"
 - WebKit の参考の試験：`python3 -m playwright install webkit` のあと `python3 -m pytest -m webkit -v`（入っていなければ skip）。実機の Safari・iPad の代わりではなく、失敗しても完成の条件ではない。結果は `webkit-report.json` に書く
 - 試験の作業フォルダー（pytest の一時フォルダー `pytest-tmp` と `webkit-report.json`）は、環境変数 `SLIDE_PLAYER_WORK_ROOT` が指す場所。未設定なら OS の一時フォルダーの下の `slide-player-tests`
 - pytest は同時に1つだけ走らせる。実行のたびに `pytest-tmp` を作り直すため、2つ走らせると互いのフォルダーを消し合う。並べて走らせるときは `SLIDE_PLAYER_WORK_ROOT` で場所を分ける：`SLIDE_PLAYER_WORK_ROOT=/tmp/sp-a python3 -m pytest -m "not webkit"`
+- `index.html`・`index.ja.html`（紹介のページ）は README から作る。`README.md` か `README.ja.md` を直したら、`python3 scripts/build_portal.py` で作り直す。古いままだと `python3 scripts/build_portal.py --check` と試験が失敗する
 - 試験の生成物（pytest の一時フォルダー・WebKit の結果）は Repo の外の作業フォルダーに置く（`.pytest_cache`・`__pycache__` は除き、`.gitignore` 済み）
 
 ## 対応ブラウザ
@@ -221,8 +222,10 @@ python3 -m pytest -m "not webkit"
 ## フォルダの形
 
 ```
-index.html                  デモの目次・英語版（GitHub Pages のトップ）
-index.ja.html               デモの目次・日本語版
+index.html                  紹介のページ・英語版（GitHub Pages のトップ。README.md から作る）
+index.ja.html               紹介のページ・日本語版（README.ja.md から作る）
+catalog.html                デモの目次・英語版（紹介のデッキと見本）
+catalog.ja.html             デモの目次・日本語版
 demo/en/, demo/ja/          紹介のデッキ3つ（intro・chic・bounce）の英語版・日本語版（examples/generic/render.js で作る）
 player/player.js            プレイヤー本体（1ファイル・依存なし）
 examples/generic/           デッキと目次の見本（render.js は見本の描画）
@@ -230,6 +233,7 @@ examples/editor/            Editor で開く Markdown の下書きの見本
 editor/                     Editor（Python の標準ライブラリだけ）
 scripts/slide-edit          Editor を開く・止める
 scripts/motion_preview.py   動きの層の見本を「動きなし」と並べる道具
+scripts/build_portal.py     README から index.html・index.ja.html を作る
 tests/                      pytest の試験（Playwright）
 CONTRACT.md                 中身とプレイヤーの約束（v1.6。日本語）
 README.md                   英語の説明

@@ -17,7 +17,7 @@ window.slideDeck = GenericSlides.createDeck({
   id: 'bounce',
   title: 'slideplay by the numbers',
   label: 'Bounce',
-  home: '../../index.html',
+  home: '../../catalog.html',
   color: '#d9480f',
   motion: { send: true, entry: 'bounce', point: true },
   sections: [
@@ -37,23 +37,23 @@ window.slideDeck = GenericSlides.createDeck({
       ],
       notes: 'Counted at the commit that contains this demo. Lines: wc -l player/player.js = 4,379. Size: wc -c = 273,167 bytes, which is 273.2 KB (1 KB = 1,000 bytes), shown as 273. Dependencies: none (README: no build step, no CDN).' },
 
-    { id: 'b03', type: 'bars', section: 'A', title: 'The five biggest folders, by lines', minutes: 1, max: 15824,
+    { id: 'b03', type: 'bars', section: 'A', title: 'The five biggest folders, by lines', minutes: 1, max: 16177,
       items: [
-        { label: 'tests/', value: 15824, display: '15824' },
+        { label: 'tests/', value: 16177, display: '16177' },
         { label: 'player/', value: 4379, display: '4379' },
         { label: 'editor/', value: 1860, display: '1860' },
         { label: 'demo/', value: 634, display: '634' },
-        { label: 'examples/', value: 546, display: '546' },
+        { label: 'scripts/', value: 551, display: '551' },
       ],
-      notes: 'Counted at the commit that contains this demo. Newline counts (like wc -l) of the 81 files listed by git ls-files, added up per top-level folder; these are the five folders with the most lines (then README.md 249, README.ja.md 243, CONTRACT.md 223). Bar length is value / 15,824. The numbers are written without commas to fit the column.' },
+      notes: 'Counted at the commit that contains this demo. Newline counts (like wc -l) of the 84 files listed by git ls-files, added up per top-level folder; these are the five folders with the most lines (next in line: examples/ 546, index.html 349, index.ja.html 343). Bar length is value / 16,177. The numbers are written without commas to fit the column.' },
 
-    { id: 'b04', type: 'stat', section: 'B', title: '1,209 tests', minutes: 1,
+    { id: 'b04', type: 'stat', section: 'B', title: '1,243 tests', minutes: 1,
       items: [
-        { value: '1,165', label: 'regular', sub: 'pytest -m "not webkit"' },
+        { value: '1,199', label: 'regular', sub: 'pytest -m "not webkit"' },
         { value: '44', label: 'WebKit', sub: 'reference only, optional' },
-        { value: '1,209', label: 'in total', sub: 'pytest --collect-only -m ""' },
+        { value: '1,243', label: 'in total', sub: 'pytest --collect-only -m ""' },
       ],
-      notes: 'Counted at the commit that contains this demo (the tests of this demo are included). python3 -m pytest --collect-only -q -m "not webkit" collects 1,165 (44 deselected); -m webkit collects 44; -m "" collects 1,209. The default in pytest.ini is -m "not webkit", so the total needs -m "". The WebKit tests are a reference and do not decide whether the work is done.' },
+      notes: 'Counted at the commit that contains this demo (the tests of this demo are included). python3 -m pytest --collect-only -q -m "not webkit" collects 1,199 (44 deselected); -m webkit collects 44; -m "" collects 1,243. The default in pytest.ini is -m "not webkit", so the total needs -m "". The WebKit tests are a reference and do not decide whether the work is done.' },
 
     { id: 'b05', type: 'bars', section: 'B', title: 'Tests per file: the top five', minutes: 1, max: 115,
       items: [
@@ -63,7 +63,7 @@ window.slideDeck = GenericSlides.createDeck({
         { label: 'player_core', value: 74, display: '74' },
         { label: 'catalog', value: 63, display: '63' },
       ],
-      notes: 'Counted at the commit that contains this demo. From pytest --collect-only -q -m "" (all 1,209 tests), counted per file; the labels are tests/test_<name>.py. 35 test files contain tests.' },
+      notes: 'Counted at the commit that contains this demo. From pytest --collect-only -q -m "" (all 1,243 tests), counted per file; the labels are tests/test_<name>.py. 35 test files contain tests.' },
 
     { id: 'b06', type: 'stat', section: 'C', title: 'The contract is small', minutes: 1,
       items: [

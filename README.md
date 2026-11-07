@@ -2,7 +2,7 @@
 
 English | [日本語](README.ja.md)
 
-Demo: <https://dmasubuchi.github.io/slideplay/> (a Japanese catalog is at <https://dmasubuchi.github.io/slideplay/index.ja.html>). The demo has three decks about slideplay itself, in English and Japanese: an introduction, a quiet deck that uses the subtle motion style, and a numbers deck that uses the bounce motion style. It also has the sample decks from `examples/generic/`.
+Demo and introduction: <https://dmasubuchi.github.io/slideplay/> (Japanese: <https://dmasubuchi.github.io/slideplay/index.ja.html>). That page has the content of this README and links to the slide catalog, <https://dmasubuchi.github.io/slideplay/catalog.html> (Japanese: <https://dmasubuchi.github.io/slideplay/catalog.ja.html>). The demo has three decks about slideplay itself, in English and Japanese: an introduction, a quiet deck that uses the subtle motion style, and a numbers deck that uses the bounce motion style. It also has the sample decks from `examples/generic/`.
 
 slideplay is a dependency-free, single-file HTML slide player. A deck is an ordinary HTML page that defines `window.slideDeck` (a list of slides and a `render` function) and loads `player/player.js`. The player adds navigation, steps, an overview, notes, links, memos, drawing, PDF export and a table of contents. It works from `file://`, with no build step and no CDN. MIT licensed.
 
@@ -216,6 +216,7 @@ python3 -m pytest -m "not webkit"
 - Reference WebKit tests: run `python3 -m playwright install webkit`, then `python3 -m pytest -m webkit -v` (they skip if WebKit is not installed). They are not a substitute for a real Safari or iPad, and a failure there does not decide whether the work is done. Results are written to `webkit-report.json`.
 - The test work folder (pytest's temporary folder `pytest-tmp` and `webkit-report.json`) is the folder named by the environment variable `SLIDE_PLAYER_WORK_ROOT`. When it is not set, it is `slide-player-tests` under the OS temporary folder.
 - Run only one pytest at a time. Every run recreates `pytest-tmp`, so two runs delete each other's folder. To run side by side, separate the places with `SLIDE_PLAYER_WORK_ROOT`: `SLIDE_PLAYER_WORK_ROOT=/tmp/sp-a python3 -m pytest -m "not webkit"`.
+- `index.html` and `index.ja.html` (the introduction pages) are built from the READMEs. After you edit `README.md` or `README.ja.md`, run `python3 scripts/build_portal.py` to rebuild them; `python3 scripts/build_portal.py --check` and the tests fail when they are out of date.
 - Generated test files (pytest's temporary folder and the WebKit results) go to a work folder outside the repository (`.pytest_cache` and `__pycache__` are excluded and listed in `.gitignore`).
 
 ## Browser support
@@ -227,8 +228,10 @@ python3 -m pytest -m "not webkit"
 ## Folder layout
 
 ```
-index.html                  demo catalog, English (the top page of GitHub Pages)
-index.ja.html               demo catalog, Japanese
+index.html                  introduction page, English (the top page of GitHub Pages; built from README.md)
+index.ja.html               introduction page, Japanese (built from README.ja.md)
+catalog.html                demo catalog, English (the demo decks and the samples)
+catalog.ja.html             demo catalog, Japanese
 demo/en/, demo/ja/          three decks about slideplay (intro, chic, bounce), in English and Japanese; built with examples/generic/render.js
 player/player.js            the player (one file, no dependencies)
 examples/generic/           sample decks and catalog (render.js is the sample renderer)
@@ -236,6 +239,7 @@ examples/editor/            a sample Markdown draft to open with the Editor
 editor/                     the Editor (Python standard library only)
 scripts/slide-edit          opens and stops the Editor
 scripts/motion_preview.py   compares motion choices with a "no motion" version
+scripts/build_portal.py     builds index.html and index.ja.html from the READMEs
 tests/                      pytest tests (Playwright)
 CONTRACT.md                 the contract between a deck and the player (v1.6, in Japanese)
 README.md                   this file

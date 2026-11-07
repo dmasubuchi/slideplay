@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>slideplay</title>
+</head>
+<body>
+<script>
+// Demo catalog for slideplay (English; the Japanese catalog is catalog.ja.html; the introduction page is index.html). CONTRACT.md section 4.
+// Three decks about slideplay (one per motion style), the sample decks in examples/generic, one sample page,
+// the introduction page, and a card that links to the Japanese catalog. The sample decks themselves are written in Japanese.
+window.slideCatalog = {
+  contract: 1,
+  title: 'slideplay',
+  lead: 'A single-file HTML slide player. No dependencies; works from file://.',
+  decks: [
+    { id: 'intro', href: 'demo/en/intro.html', label: 'Intro', title: 'Introducing slideplay', color: '#0e7c66',
+      items: ['Overview', 'Deck format', 'Using it', 'Going further'], meta: '12 slides · about 20 min' },
+    { id: 'chic', href: 'demo/en/chic.html', label: 'Chic', title: 'slideplay, quietly', color: '#3a4a63',
+      items: ['Subtle motion', 'A few words per slide'], meta: '8 slides · about 4 min' },
+    { id: 'bounce', href: 'demo/en/bounce.html', label: 'Bounce', title: 'slideplay by the numbers', color: '#d9480f',
+      items: ['Numbers that count up', 'Bouncy motion'], meta: '8 slides · about 8 min' },
+    { id: 'proposal', href: 'examples/generic/proposal.html', label: 'Sample: proposal', title: 'A business proposal (in Japanese)', color: '#0b6bcb',
+      items: ['Current issues', 'The proposal', 'Plan and cost'], meta: '9 slides · about 16 min' },
+    { id: 'minimal', href: 'examples/generic/minimal.html', label: 'Sample: smallest', title: 'The smallest deck (in Japanese)', meta: '1 slide' },
+    { id: 'motion', href: 'examples/generic/motion.html', label: 'Sample: motion', title: 'A motion sample deck (in Japanese)', color: '#1f3864',
+      items: ['Today\'s inquiries', 'How to review them'], meta: '6 slides · about 10 min' },
+    { id: 'handout', kind: 'page', href: 'examples/generic/handout.html', title: 'A handout page (in Japanese)' },
+    { id: 'about', kind: 'page', href: 'index.html', title: 'About slideplay (introduction and README)' },
+    { id: 'ja', kind: 'page', href: 'catalog.ja.html', title: '日本語版 (Japanese catalog)' },
+  ],
+};
+</script>
+<script src="player/player.js"></script>
+</body>
+</html>

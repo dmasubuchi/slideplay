@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>slideplay</title>
+</head>
+<body>
+<script>
+// slideplay のデモの目次（日本語版。英語版は catalog.html。紹介のページは index.ja.html）。CONTRACT.md §4。
+// slideplay を紹介するデッキ3つ（動きの型ごと）、examples/generic の見本のデッキ、見本のページ1つ、紹介のページ、英語版の目次へのカード
+window.slideCatalog = {
+  contract: 1,
+  title: 'slideplay',
+  lead: '1ファイルの HTML スライドプレイヤー（依存なし・file:// で動く）',
+  decks: [
+    { id: 'intro', href: 'demo/ja/intro.html', label: '紹介', title: 'slideplay の紹介', color: '#0e7c66',
+      items: ['はじめに', 'デッキの形', '使い方', '広げる・確かめる'], meta: '12枚・約20分' },
+    { id: 'chic', href: 'demo/ja/chic.html', label: 'シック', title: 'slideplay、静かに', color: '#3a4a63',
+      items: ['控えめな動き', '1枚に少ない言葉'], meta: '8枚・約4分' },
+    { id: 'bounce', href: 'demo/ja/bounce.html', label: 'バウンス', title: 'slideplay を数字で見る', color: '#d9480f',
+      items: ['数え上がる数字', '弾む動き'], meta: '8枚・約8分' },
+    { id: 'proposal', href: 'examples/generic/proposal.html', label: '提案書の見本', title: '請求業務の効率化のご提案', color: '#0b6bcb',
+      items: ['現状と課題', 'ご提案の内容', '進め方と費用'], meta: '9枚・約16分' },
+    { id: 'minimal', href: 'examples/generic/minimal.html', title: '最小の見本', meta: '1枚' },
+    { id: 'motion', href: 'examples/generic/motion.html', label: '動きの見本', title: '問い合わせ対応を見直すご提案', color: '#1f3864',
+      items: ['いまの問い合わせ', '見直しの進め方'], meta: '6枚・約10分' },
+    { id: 'handout', kind: 'page', href: 'examples/generic/handout.html', title: '配布用の資料' },
+    { id: 'about', kind: 'page', href: 'index.ja.html', title: 'slideplay について（紹介と README）' },
+    { id: 'en', kind: 'page', href: 'catalog.html', title: 'English version (英語版の目次)' },
+  ],
+};
+</script>
+<script src="player/player.js"></script>
+</body>
+</html>
