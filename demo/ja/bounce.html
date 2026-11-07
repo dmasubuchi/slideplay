@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>slideplay を数字で見る</title>
+</head>
+<body>
+<div id="stage" class="sp-target"></div>
+<script src="../../examples/generic/render.js"></script>
+<script>
+// slideplay を数字で見るデッキ（日本語版。英語版は demo/en/bounce.html）。
+// デッキの info.motion で、入場の型に弾む型（bounce）を選ぶ（CONTRACT.md 2.2）。render.js は stat の数字に
+// data-sp-role="count" を付けるので、スライドに着くと数字が 0 から数え上がる。
+// 数字は v1.6 の時点でリポジトリから数えたもの（各スライドのノートに数え方）。ID は変えない
+window.slideDeck = GenericSlides.createDeck({
+  id: 'bounce',
+  title: 'slideplay を数字で見る',
+  label: 'バウンス',
+  home: '../../index.ja.html',
+  color: '#d9480f',
+  motion: { send: true, entry: 'bounce', point: true },
+  sections: [
+    { id: 'A', title: 'プレイヤー' },
+    { id: 'B', title: '試験' },
+    { id: 'C', title: '約束' },
+  ],
+  slides: [
+    { id: 'b01', type: 'title', title: '数字で見る slideplay', subtitle: 'リポジトリそのものから数えた', minutes: 0.5,
+      notes: '弾む型の入場：題名はぼけて出て、箇条書きとカードは持ち上がり、棒は伸び、数字のカードは弾んで、数字が 0 から数え上がる。↓ で1枚ずつ確かめる。数字はすべて v1.6 の時点で、リポジトリから数えたもの。プレイヤーの画面の文字（操作の一覧・ボタンなど）は日本語。' },
+
+    { id: 'b02', type: 'stat', section: 'A', title: 'プレイヤーは1ファイル', minutes: 1,
+      items: [
+        { value: '4,379', label: '行', sub: 'player/player.js' },
+        { value: '267', label: 'KB', sub: '273,167 バイト' },
+        { value: '0', label: '依存', sub: 'ビルドも CDN もなし' },
+      ],
+      notes: 'v1.6 の時点。行数：wc -l player/player.js が 4,379。大きさ：wc -c が 273,167 バイト、266.8 KiB を 267 KB と表示。依存：なし（README：ビルドも CDN もなし）。' },
+
+    { id: 'b03', type: 'bars', section: 'A', title: '場所ごとの行数', minutes: 1, max: 15617,
+      items: [
+        { label: 'tests/', value: 15617, display: '15617' },
+        { label: 'player/', value: 4379, display: '4379' },
+        { label: 'editor/', value: 1860, display: '1860' },
+        { label: 'examples/', value: 546, display: '546' },
+        { label: 'CONTRACT.md', value: 223, display: '223' },
+      ],
+      notes: 'v1.6 の時点。git が追跡する70ファイル（git ls-tree -r HEAD）の改行の数を、最上位のフォルダーごとに足した。CONTRACT.md は1ファイル。棒の長さは値 ÷ 15,617。' },
+
+    { id: 'b04', type: 'stat', section: 'B', title: '試験は1,189本', minutes: 1,
+      items: [
+        { value: '1,145', label: '通常', sub: 'pytest -m "not webkit"' },
+        { value: '44', label: 'WebKit', sub: '参考。入れなくてもよい' },
+        { value: '1,189', label: '合計', sub: 'pytest --collect-only' },
+      ],
+      notes: 'v1.6 の時点。python3 -m pytest --collect-only -q -m "not webkit" が 1,145 本（44 本を除外）、-m webkit が 44 本、-m "" が 1,189 本。WebKit の試験は参考で、失敗しても完成の条件ではない。' },
+
+    { id: 'b05', type: 'bars', section: 'B', title: 'ファイルごとの試験数、上位5つ', minutes: 1, max: 115,
+      items: [
+        { label: 'links', value: 115, display: '115' },
+        { label: 'ui', value: 102, display: '102' },
+        { label: 'places', value: 89, display: '89' },
+        { label: 'player_core', value: 74, display: '74' },
+        { label: 'catalog', value: 63, display: '63' },
+      ],
+      notes: 'v1.6 の時点。pytest --collect-only -q -m ""（1,189本すべて）をファイルごとに数えた。名前は tests/test_<名前>.py。試験のファイルは全部で34。' },
+
+    { id: 'b06', type: 'stat', section: 'C', title: '約束は小さい', minutes: 1,
+      items: [
+        { value: '7', label: '章', sub: 'CONTRACT.md の §0〜§6' },
+        { value: '7', label: '部品', sub: 'title・bullets・two・points・stat・bars・flow' },
+        { value: '10', label: '文字キー', sub: 'O H N F L P T M D E' },
+        { value: '3', label: '保存', sub: '設定・場所・メモ' },
+      ],
+      notes: 'v1.6 の時点。章：CONTRACT.md の「##」の見出し、0 から 6 まで（7）。部品：examples/generic/render.js が描ける種類 title・bullets・two・points・stat・bars・flow（7）。文字キー：§5 に並ぶ O・H・N・F・L・P・T・M・D・E（10）。保存：§3.2 で、プレイヤーが保存するのは設定・直近の場所・メモの3つだけ。' },
+
+    { id: 'b07', type: 'flow', section: 'C', title: '数字が数え上がるまで', minutes: 2,
+      rows: [
+        { nodes: [
+            { t: 'stat の数字', s: 'render.js が役目 count を付ける' },
+            { t: '入場：弾む型', s: '0 から数え上がる' },
+            { t: '最後の文字', s: 'render が描いたそのまま' },
+          ],
+          arrows: [{ text: '読む' }, { text: 'そして' }] },
+        { nodes: [
+            { t: '↓ で次へ', s: '次のスライドに着くと入場が動く' },
+            { t: '先へ進む', s: '動きを止めても、すぐ最後の姿になる' },
+            { t: '縮小一覧・PDF', s: 'いつも素の render' },
+          ] },
+      ],
+      notes: 'CONTRACT.md 2.6 と 3.2：count の役目は、文字の最初の数を 0 から数え、終わったら元の文字に戻す。先へ進む・段階を変える・動きを止める・OS の「視差効果を減らす」のときは、動き終わりの姿になる。縮小一覧・一覧つきの画面・PDF・?render は、いつも素の render の結果で、動かさない。' },
+
+    { id: 'b08', type: 'title', title: 'slideplay', subtitle: 'github.com/dmasubuchi/slideplay', minutes: 0.5,
+      notes: 'MIT ライセンス。https://github.com/dmasubuchi/slideplay 。このデッキの数字はすべて v1.6 の時点。' },
+  ],
+});
+</script>
+<script src="../../player/player.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>slideplay, quietly</title>
+</head>
+<body>
+<div id="stage" class="sp-target"></div>
+<script src="../../examples/generic/render.js"></script>
+<script>
+// A quiet slideplay deck (English version; the Japanese version is demo/ja/chic.html).
+// It chooses the subtle entry style at deck level (info.motion, CONTRACT.md 2.2): few words, wide margins.
+// Do not change slide IDs. When adding a slide in the middle, give it a new ID.
+window.slideDeck = GenericSlides.createDeck({
+  id: 'chic',
+  title: 'slideplay, quietly',
+  label: 'Chic',
+  home: '../../index.html',
+  color: '#3a4a63',
+  motion: { send: true, entry: 'subtle' },
+  sections: [
+    { id: 'A', title: 'The idea' },
+    { id: 'B', title: 'The details' },
+  ],
+  slides: [
+    { id: 'c01', type: 'title', title: 'slideplay', subtitle: 'A slide player in one file', minutes: 0.5,
+      notes: 'The subtle entry style: titles fade in, list items and cards slide in from the left, bars wipe in. Press Down to see each one. The player\'s own UI text (help panel, buttons) is Japanese for now.' },
+    { id: 'c02', type: 'title', title: 'One file', subtitle: 'player/player.js', minutes: 0.5,
+      notes: 'The whole player, with its CSS, is one file.' },
+    { id: 'c03', type: 'title', title: 'No dependencies', subtitle: 'No build. No CDN.', minutes: 0.5,
+      notes: 'Nothing to install and nothing to build.' },
+    { id: 'c04', type: 'title', title: 'Opens from file://', subtitle: 'Double-click to start', minutes: 0.5,
+      notes: 'A deck is an ordinary HTML page. No server is needed.' },
+    { id: 'c05', type: 'points', section: 'A', title: 'Draw. Note. Export.', minutes: 0.5,
+      items: [
+        { text: 'Draw', sub: 'Press D' },
+        { text: 'Note', sub: 'Press M' },
+        { text: 'Export', sub: 'Press P for PDF' },
+      ],
+      notes: 'Cards use the subtle entry style: they slide in from the left, one after another.' },
+    { id: 'c06', type: 'flow', section: 'B', title: 'One contract', minutes: 0.5,
+      rows: [{
+        nodes: [{ t: 'slideDeck', s: 'Your slides' }, { t: 'player.js', s: 'Keys and navigation' }, { t: 'render', s: 'One slide at a time' }],
+      }],
+      notes: 'A deck hands over window.slideDeck with a render function; the player does the rest. The full contract is CONTRACT.md (in Japanese).' },
+    { id: 'c07', type: 'title', title: 'Motion, by choice', subtitle: 'send · entry · point', minutes: 0.5,
+      notes: 'A deck turns on only the motion layers it wants: send, entry (subtle or bounce) and point. Viewers can turn motion off from the ? panel.' },
+    { id: 'c08', type: 'title', title: 'Try it', subtitle: 'github.com/dmasubuchi/slideplay', minutes: 0.5,
+      notes: 'MIT licensed. https://github.com/dmasubuchi/slideplay' },
+  ],
+});
+</script>
+<script src="../../player/player.js"></script>
+</body>
+</html>

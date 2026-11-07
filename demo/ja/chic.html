@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>slideplay、静かに</title>
+</head>
+<body>
+<div id="stage" class="sp-target"></div>
+<script src="../../examples/generic/render.js"></script>
+<script>
+// 静かな slideplay のデッキ（日本語版。英語版は demo/en/chic.html）。
+// デッキの info.motion で、入場の型に控えめ型（subtle）を選ぶ（CONTRACT.md 2.2）。言葉は少なく、余白を広く。
+// ID は変えない。途中に足すときは新しい ID を付ける
+window.slideDeck = GenericSlides.createDeck({
+  id: 'chic',
+  title: 'slideplay、静かに',
+  label: 'シック',
+  home: '../../index.ja.html',
+  color: '#3a4a63',
+  motion: { send: true, entry: 'subtle' },
+  sections: [
+    { id: 'A', title: 'かたち' },
+    { id: 'B', title: 'しくみ' },
+  ],
+  slides: [
+    { id: 'c01', type: 'title', title: 'slideplay', subtitle: '1ファイルのスライドプレイヤー', minutes: 0.5,
+      notes: '控えめ型の入場：題名はふわっと出て、箇条書きとカードは左から入り、棒は端から伸びる。↓ で1枚ずつ確かめる。プレイヤーの画面の文字（操作の一覧・ボタンなど）は日本語。' },
+    { id: 'c02', type: 'title', title: '1ファイル', subtitle: 'player/player.js', minutes: 0.5,
+      notes: 'プレイヤー本体は、CSS も含めて1ファイル。' },
+    { id: 'c03', type: 'title', title: '依存なし', subtitle: 'ビルドも CDN もなし', minutes: 0.5,
+      notes: '入れるものも、ビルドの手順もない。' },
+    { id: 'c04', type: 'title', title: 'file:// で動く', subtitle: 'ダブルクリックで始まる', minutes: 0.5,
+      notes: 'デッキはふつうの HTML のページ。サーバーは要らない。' },
+    { id: 'c05', type: 'points', section: 'A', title: '書き込み・メモ・PDF', minutes: 0.5,
+      items: [
+        { text: '書き込み', sub: 'D' },
+        { text: 'メモ', sub: 'M' },
+        { text: 'PDF', sub: 'P' },
+      ],
+      notes: 'カードも控えめ型の入場で、左から順に入る。' },
+    { id: 'c06', type: 'flow', section: 'B', title: '約束は1つ', minutes: 0.5,
+      rows: [{
+        nodes: [{ t: 'slideDeck', s: 'スライドの中身' }, { t: 'player.js', s: '操作と移動' }, { t: 'render', s: '1枚ずつ描く' }],
+      }],
+      notes: 'デッキは render のある window.slideDeck を渡すだけで、あとはプレイヤーが受け持つ。約束の全体は CONTRACT.md。' },
+    { id: 'c07', type: 'title', title: '動きは、選んだ分だけ', subtitle: '送り・入場・指す', minutes: 0.5,
+      notes: 'デッキは、ほしい動きの層だけを選ぶ：送り・入場（控えめ型か弾む型）・指す。見る人は ? の一覧で動きを止められる。' },
+    { id: 'c08', type: 'title', title: '試してみる', subtitle: 'github.com/dmasubuchi/slideplay', minutes: 0.5,
+      notes: 'MIT ライセンス。https://github.com/dmasubuchi/slideplay' },
+  ],
+});
+</script>
+<script src="../../player/player.js"></script>
+</body>
+</html>

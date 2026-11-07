@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introducing slideplay</title>
+</head>
+<body>
+<div id="stage" class="sp-target"></div>
+<script src="../../examples/generic/render.js"></script>
+<script>
+// Introduction to slideplay (English version; the Japanese version is demo/ja/intro.html).
+// Built from README.md and CONTRACT.md with the sample renderer (render.js). This deck runs on player.js alone.
+// Do not change slide IDs. When adding a slide in the middle, give it a new ID.
+window.slideDeck = GenericSlides.createDeck({
+  id: 'intro',
+  title: 'Introducing slideplay',
+  label: 'Intro',
+  home: '../../index.html',
+  color: '#0e7c66',
+  motion: { send: true, entry: 'bounce', point: true },
+  sections: [
+    { id: 'A', title: 'Overview' },
+    { id: 'B', title: 'Deck format' },
+    { id: 'C', title: 'Using it' },
+    { id: 'D', title: 'Going further' },
+  ],
+  slides: [
+    { id: 'i01', type: 'title', title: 'slideplay', subtitle: 'A single-file HTML slide player',
+      minutes: 1,
+      notes: 'This deck is running on slideplay itself. Press Down or Space to advance, and ? for the key list. The slides and notes are in English; the player\'s own UI text (help panel, buttons, toasts) is Japanese for now. The motion you see is chosen by the deck (send, entry and point layers).' },
+
+    { id: 'i02', type: 'stat', section: 'A', title: 'One file. No dependencies.', minutes: 1,
+      items: [
+        { value: '1', label: 'file', sub: 'player/player.js, CSS included' },
+        { value: '0', label: 'dependencies', sub: 'no build step, no CDN', step: 1 },
+        { value: 'file://', label: 'just works', sub: 'no server needed', step: 2 },
+      ],
+      notes: 'The content of a deck and the player (keys, navigation, overview, notes, links) are separate. A deck only hands over window.slideDeck. MIT licensed. The player\'s UI text (help panel, buttons) is Japanese for now; the contract document, CONTRACT.md, is also in Japanese.' },
+
+    { id: 'i03', type: 'bullets', section: 'A', title: 'Try it in three steps', minutes: 1.5,
+      items: [
+        'Copy player.js into a new folder',
+        { text: 'Put a minimal deck, deck.html, next to it', at: 1 },
+        { text: 'Open deck.html in a browser (double-click is fine)', at: 2 },
+        { text: 'Next: Down, PageDown or Space.  Back: Up', at: 3 },
+        { text: 'Key list: ?   Overview: O   Full screen: F', at: 3 },
+      ],
+      notes: 'This follows "Quick start" in README.md. The next slide shows what deck.html contains. The URL hash (for example #points.2) is the current place, so reloading or sharing the URL opens the same slide and step.' },
+
+    { id: 'i04', type: 'two', section: 'B', title: 'A minimal deck has three parts', minutes: 2,
+      left: { heading: 'On the page', items: [
+        'A stage: #stage.sp-target',
+        { text: 'window.slideDeck', at: 1 },
+        { text: 'A script tag for player.js', at: 2 },
+      ] },
+      right: { heading: 'Inside slideDeck', items: [
+        'contract: 1',
+        { text: 'info (id, title, slides)', at: 1 },
+        { text: 'render(ref, step, target)', at: 2 },
+      ] },
+      notes: 'The stage is a 1920 x 1080 element. Define slideDeck before loading player.js. In info.slides each slide has an id, a title and steps (the number of the last step). render draws the slide given by ref (a position or an id) and step into the target element. The full rules are in CONTRACT.md (Japanese).' },
+
+    { id: 'i05', type: 'flow', section: 'B', title: 'The contract in one picture', minutes: 2,
+      rows: [
+        { nodes: [
+            { t: 'slideDeck.info', s: 'Slide list, steps, notes' },
+            { t: 'player.js', s: 'Keys, URL, overview, notes' },
+            { t: 'slideDeck.render', s: 'Draws one slide into a target' },
+          ],
+          arrows: [{ text: 'reads' }, { text: 'calls' }] },
+        { nodes: [
+            { t: 'slideCatalog', s: 'A page that lists decks' },
+            { t: 'slideDeck', s: 'A deck page' },
+            { t: 'Catalog', s: 'Back, with that deck selected' },
+          ],
+          arrows: [{ text: 'opens' }, { text: 'H' }] },
+      ],
+      notes: 'Top row: a deck hands over info and render; keys and navigation belong to the player. Bottom row: a catalog page defines window.slideCatalog and loads the same player.js. Pressing H in a deck opens the catalog set as home, with that deck selected.' },
+
+    { id: 'i06', type: 'two', section: 'C', title: 'Main keys (? shows them all)', minutes: 2,
+      left: { heading: 'Move', items: [
+        'Down / Space: next',
+        { text: 'Up / PageUp: back', at: 1 },
+        { text: 'Home / End: first / last', at: 2 },
+        { text: 'Left / Right: recent places', at: 3 },
+      ] },
+      right: { heading: 'View', items: [
+        'O: overview',
+        { text: 'T: slide list view', at: 1 },
+        { text: 'N: notes', at: 2 },
+        { text: '?: key list', at: 3 },
+      ] },
+      notes: 'On a slide with steps, Down goes to the next step first. Clicking a slide does not advance it (so you can select and copy text). H goes back to the catalog, F toggles full screen, L shows the links. On iPhone and iPad, swiping works like the keys.' },
+
+    { id: 'i07', type: 'points', section: 'C', title: 'The deck chooses its motion', minutes: 2,
+      items: [
+        { text: 'Send', sub: 'Slides move left and right as you go' },
+        { text: 'Entry', sub: 'Content appears in order: subtle or bounce style', step: 1 },
+        { text: 'Point', sub: 'Hover lifts a card; a soft glow follows the mouse', step: 2 },
+      ] ,
+      notes: 'Write info.motion like { send: true, entry: "bounce", point: true }. entry is "subtle" or "bounce". A deck that chooses nothing gets only the send layer. Viewers can turn motion on or off from the ? panel, and the OS "reduce motion" setting stops it too. This deck uses the bounce style.' },
+
+    { id: 'i08', type: 'bullets', section: 'C', title: 'Draw, note, export', minutes: 2,
+      items: [
+        'D  Draw: shapes, freehand, text, highlighter',
+        { text: 'M  Memo: per slide, saved in this browser', at: 1 },
+        { text: 'P  PDF: one 16:9 page per slide', at: 2 },
+        { text: 'O / T  Overview and slide list view', at: 3 },
+        { text: 'Drawings are not saved. Export a PDF to keep them', at: 4 },
+      ],
+      notes: 'Drawing works on any deck, with a mouse or an Apple Pencil; color, width and size are chosen in the toolbar. "Add a blank page" adds an extra page. Drawings and extra pages live only while the page is open. P opens the print dialog; choose "Save as PDF". Memos are kept only in localStorage.' },
+
+    { id: 'i09', type: 'bullets', section: 'D', title: 'A Markdown editor for drafts', minutes: 2,
+      items: [
+        '[[Start command]] opens a Markdown draft',
+        'The stage redraws about a second after each save',
+        { text: 'Click text on the stage to edit it in place', at: 1 },
+        { text: 'Apply writes the changes back to Markdown', at: 2 },
+        { text: 'Python 3 standard library only', at: 3 },
+      ],
+      links: [{ label: 'Start command', kind: 'copy', text: 'scripts/slide-edit open examples/editor' }],
+      notes: 'Editor mode runs a local server that listens on 127.0.0.1 only. If the browser cannot be opened automatically, add --no-open and open the printed URL yourself. Stop it with scripts/slide-edit stop. A sample draft is in examples/editor. Click the first line to copy the command.' },
+
+    { id: 'i10', type: 'bullets', section: 'D', title: '?render: draw and nothing else', minutes: 1.5,
+      items: [
+        'Add ?render to a deck URL',
+        'No UI, no CSS markers, no key handling',
+        { text: 'renderSlide(i, step) draws one slide', at: 1 },
+        { text: 'deckInfo() lists each slide\'s id and steps', at: 2 },
+      ],
+      notes: 'This mode is for external tools that turn each slide into an image or a video. The body gets the class "render" and the stage sits at the top left, not scaled. See section 3.1 of CONTRACT.md.' },
+
+    { id: 'i11', type: 'bullets', section: 'D', title: 'Tests run with pytest', minutes: 1.5,
+      items: [
+        'Setup: [[Install command]]',
+        'Run: [[Test command]]',
+        { text: 'About 7 minutes in total, depending on your machine', at: 1 },
+        { text: 'SLIDE_PLAYER_WORK_ROOT moves the work folder', at: 2 },
+      ],
+      links: [
+        { label: 'Install command', kind: 'copy', text: 'python3 -m pip install pytest playwright pillow pypdf pymupdf numpy' },
+        { label: 'Test command', kind: 'copy', text: 'python3 -m pytest -m "not webkit"' },
+      ],
+      notes: 'This follows "Tests" in README.md. Install Chromium first with python3 -m playwright install chromium. Run only one pytest at a time. The WebKit tests are for reference and do not run by default. Click a command to copy it.' },
+
+    { id: 'i12', type: 'bullets', section: 'D', title: 'License and links', minutes: 1,
+      items: [
+        'License: MIT',
+        'GitHub: [[github.com/dmasubuchi/slideplay]]',
+        'The contract: CONTRACT.md (in Japanese)',
+        'Usage and tests: README.md (README.ja.md in Japanese)',
+        'The player\'s own UI text is Japanese for now',
+      ],
+      links: [{ label: 'github.com/dmasubuchi/slideplay', kind: 'external', target: 'https://github.com/dmasubuchi/slideplay' }],
+      notes: 'The repository is https://github.com/dmasubuchi/slideplay . The first link opens it. For a minimal deck see "Quick start" in README.md; for the whole contract see CONTRACT.md. Press H to return to the catalog and open the other decks.' },
+  ],
+});
+</script>
+<script src="../../player/player.js"></script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>slideplay の紹介</title>
+</head>
+<body>
+<div id="stage" class="sp-target"></div>
+<script src="../../examples/generic/render.js"></script>
+<script>
+// slideplay の紹介のデッキ（日本語版。英語版は demo/en/intro.html）。README.md と CONTRACT.md の内容を、見本の描画（render.js）で並べたもの。
+// このデッキ自身が、player.js だけで動く。ID は変えない。途中に足すときは新しい ID を付ける
+window.slideDeck = GenericSlides.createDeck({
+  id: 'intro',
+  title: 'slideplay の紹介',
+  label: '紹介',
+  home: '../../index.ja.html',
+  color: '#0e7c66',
+  motion: { send: true, entry: 'bounce', point: true },
+  sections: [
+    { id: 'A', title: 'はじめに' },
+    { id: 'B', title: 'デッキの形' },
+    { id: 'C', title: '使い方' },
+    { id: 'D', title: '広げる・確かめる' },
+  ],
+  slides: [
+    { id: 'i01', type: 'title', title: 'slideplay', subtitle: '1ファイルの HTML スライドプレイヤー',
+      minutes: 1,
+      notes: 'このデッキ自身が slideplay で動いている。↓ か Space で進む。? を押すと、使えるキーの一覧が出る。動きは、デッキが選んだもの（送り・入場・指す）が効いている。' },
+
+    { id: 'i02', type: 'stat', section: 'A', title: 'HTML スライドの共通プレイヤー', minutes: 1,
+      items: [
+        { value: '1', label: 'ファイルだけ', sub: 'player/player.js（CSS 込み）' },
+        { value: '0', label: '依存するもの', sub: 'ビルドも CDN も使わない', step: 1 },
+        { value: 'file://', label: 'で開いて動く', sub: 'サーバーは要らない', step: 2 },
+      ],
+      notes: 'スライドの中身と、プレイヤー（操作・移動・一覧・ノート・リンク）を分ける。中身は window.slideDeck を渡すだけ。MIT ライセンス。プレイヤーの画面の文字（操作の一覧・ボタンなど）は日本語。' },
+
+    { id: 'i03', type: 'bullets', section: 'A', title: 'すぐ試す：3つの手順', minutes: 1.5,
+      items: [
+        '新しいフォルダーに player.js を写す',
+        { text: '同じフォルダーに、最小のデッキ deck.html を置く', at: 1 },
+        { text: 'deck.html をブラウザーで開く（ダブルクリックでよい）', at: 2 },
+        { text: '次へ：↓・PageDown・Space　前へ：↑', at: 3 },
+        { text: '操作の一覧は ?、縮小一覧は O、全画面は F', at: 3 },
+      ],
+      notes: 'README.ja.md の「すぐ試す」のとおり。deck.html の中身は次のスライドで見る。URL の hash（#points.2 など）が今の場所を表すので、再読み込みや共有で同じ場所が開く。' },
+
+    { id: 'i04', type: 'two', section: 'B', title: '最小のデッキは、3つでできている', minutes: 2,
+      left: { heading: 'ページに置くもの', items: [
+        '舞台：#stage.sp-target',
+        { text: 'window.slideDeck', at: 1 },
+        { text: 'player.js の読み込み', at: 2 },
+      ] },
+      right: { heading: 'slideDeck の中身', items: [
+        'contract: 1',
+        { text: 'info（id・title・slides）', at: 1 },
+        { text: 'render(ref, step, target)', at: 2 },
+      ] },
+      notes: '舞台は1920×1080の要素。slideDeck は player.js を読み込む前に定義する。info.slides には、スライドごとに id・title・steps（最後の段階の番号）を書く。render は、ref（位置か id）と step で、描画先 target に描く。詳しい決まりは CONTRACT.md。' },
+
+    { id: 'i05', type: 'flow', section: 'B', title: '約束は、この1枚の図で足りる', minutes: 2,
+      rows: [
+        { nodes: [
+            { t: 'slideDeck.info', s: 'スライドの一覧・段階・ノート' },
+            { t: 'player.js', s: '操作・URL・一覧・ノート' },
+            { t: 'slideDeck.render', s: '描画先に1枚を描く' },
+          ],
+          arrows: [{ text: '読む' }, { text: '呼ぶ' }] },
+        { nodes: [
+            { t: 'slideCatalog', s: 'デッキを並べた目次' },
+            { t: 'slideDeck', s: 'デッキのページ' },
+            { t: '目次', s: 'そのデッキを選んで戻る' },
+          ],
+          arrows: [{ text: '開く' }, { text: 'H' }] },
+      ],
+      notes: '上の段：デッキは info と render を渡し、操作と移動はプレイヤーが受け持つ。下の段：目次のページは window.slideCatalog を定義して、同じ player.js を読み込む。デッキで H を押すと、home の目次をそのデッキの ID 付きで開く。' },
+
+    { id: 'i06', type: 'two', section: 'C', title: '主なキー操作（? で全部の一覧）', minutes: 2,
+      left: { heading: '進む・戻る', items: [
+        '↓・Space：次へ',
+        { text: '↑・PageUp：前へ', at: 1 },
+        { text: 'Home・End：最初・最後', at: 2 },
+        { text: '← →：直近の場所へ', at: 3 },
+      ] },
+      right: { heading: '見る・使う', items: [
+        'O：縮小一覧',
+        { text: 'T：一覧つきの画面', at: 1 },
+        { text: 'N：ノート', at: 2 },
+        { text: '?：操作の一覧', at: 3 },
+      ] },
+      notes: '段階があるスライドでは、↓ が先に次の段階へ進む。スライドをクリックしても進まない（文字を選んで写せるようにするため）。H は目次へ戻る、F は全画面、L はリンクを表示する。iPhone・iPad では、指で払う操作がキーと同じに動く。' },
+
+    { id: 'i07', type: 'points', section: 'C', title: '動きの層は、デッキが選ぶ', minutes: 2,
+      items: [
+        { text: '送り', sub: '隣のスライドへ移ると、左右に流れる' },
+        { text: '入場', sub: '中身が順に出る。控えめ型（subtle）と弾む型（bounce）', step: 1 },
+        { text: '指す', sub: 'ホバーで浮かび、マウスのまわりが明るくなる', step: 2 },
+      ],
+      notes: 'info.motion に { send: true, entry: "bounce", point: true } のように書く。entry は "subtle"（控えめ型）か "bounce"（弾む型）。何も選ばないデッキは、送りだけが付く。見る人は ? の一覧で「動き：あり／なし」を選べる。OS の「視差効果を減らす」でも止まる。このデッキは弾む型。' },
+
+    { id: 'i08', type: 'bullets', section: 'C', title: '書き込み・メモ・PDF・一覧', minutes: 2,
+      items: [
+        'D　書き込み：図形・手書き・文字・蛍光ペン',
+        { text: 'M　メモ：スライドごと。このブラウザーに保存', at: 1 },
+        { text: 'P　PDF：1枚1ページ（16:9）で書き出す', at: 2 },
+        { text: 'O・T　縮小一覧と、一覧つきの画面', at: 3 },
+        { text: '書き込みは保存しない。残すなら PDF に', at: 4 },
+      ],
+      notes: '書き込みは、どのデッキでも使える。マウスと Apple Pencil で書け、色・太さ・大きさは帯で選ぶ。「白紙を足す」で追加ページも作れる。書き込みと追加ページは、ページを開いている間だけ覚える。PDF は印刷の画面が開くので、送り先を「PDFに保存」にする。メモは localStorage にだけ保存される。' },
+
+    { id: 'i09', type: 'bullets', section: 'D', title: 'Markdown の下書きを直す Editor', minutes: 2,
+      items: [
+        '[[起動のコマンド]]で、Markdown の下書きを開く',
+        '保存のたびに、1秒ほどで描き直す',
+        { text: '舞台の文字をクリックして、その場で直せる', at: 1 },
+        { text: '「反映」で、まとめて Markdown に書く', at: 2 },
+        { text: 'Python 3 の標準ライブラリだけで動く', at: 3 },
+      ],
+      links: [{ label: '起動のコマンド', kind: 'copy', text: 'scripts/slide-edit open examples/editor' }],
+      notes: 'Editor モード。手元のサーバー（127.0.0.1 だけで聞く）が動く。ブラウザーが開けない環境では --no-open を付けて、表示された URL を自分で開く。止めるのは scripts/slide-edit stop。書き方の見本は examples/editor/下書き.md。1行目のリンクを押すとコマンドが写せる。' },
+
+    { id: 'i10', type: 'bullets', section: 'D', title: '?render：描くだけのモード', minutes: 1.5,
+      items: [
+        'デッキの URL に ?render を付ける',
+        '部品・CSS・リンクの印・キー操作を出さない',
+        { text: 'renderSlide(i, step) で、1枚を描く', at: 1 },
+        { text: 'deckInfo() で、各スライドの id と段階を知る', at: 2 },
+      ],
+      notes: 'スライドを1枚ずつ静止画や動画にする外部の道具のためのモード。body に class render が付き、舞台は左上に縮小せずに置く。決まりは CONTRACT.md の 3.1。' },
+
+    { id: 'i11', type: 'bullets', section: 'D', title: '試験は pytest で動かす', minutes: 1.5,
+      items: [
+        '準備：[[試験の準備のコマンド]]',
+        '実行：[[試験の実行のコマンド]]',
+        { text: '全部で約7分（環境による）', at: 1 },
+        { text: '一時フォルダーは SLIDE_PLAYER_WORK_ROOT で指す', at: 2 },
+      ],
+      links: [
+        { label: '試験の準備のコマンド', kind: 'copy', text: 'python3 -m pip install pytest playwright pillow pypdf pymupdf numpy' },
+        { label: '試験の実行のコマンド', kind: 'copy', text: 'python3 -m pytest -m "not webkit"' },
+      ],
+      notes: 'README.ja.md の「試験」のとおり。先に python3 -m playwright install chromium で Chromium を入れる。pytest は同時に1つだけ走らせる。WebKit の試験は参考で、既定では走らせない。コマンドのリンクを押すと写せる。' },
+
+    { id: 'i12', type: 'bullets', section: 'D', title: 'ライセンスと入手先', minutes: 1,
+      items: [
+        'ライセンス：MIT',
+        'GitHub：[[github.com/dmasubuchi/slideplay]]',
+        'デッキとプレイヤーの約束：CONTRACT.md',
+        '使い方と試験の手順：README.ja.md',
+      ],
+      links: [{ label: 'github.com/dmasubuchi/slideplay', kind: 'external', target: 'https://github.com/dmasubuchi/slideplay' }],
+      notes: 'リポジトリは https://github.com/dmasubuchi/slideplay 。1行目のリンクで開ける。最小のデッキの作り方は README.ja.md の「すぐ試す」、約束の全体は CONTRACT.md。英語の説明は README.md。目次（H）に戻ると、ほかの見本のデッキも開ける。' },
+  ],
+});
+</script>
+<script src="../../player/player.js"></script>
+</body>
+</html>
