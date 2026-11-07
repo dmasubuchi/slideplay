@@ -1,0 +1,9 @@
+#!/bin/sh
+# Editor モード（Markdown の下書きを保存のたびに描き直す手元のサーバー）を開く・止める道具。
+#   scripts/slide-edit open <デッキのフォルダーか .md> [--no-open] [--port N]
+#   scripts/slide-edit stop <デッキのフォルダーか .md>
+set -eu
+repo=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd -P)
+python=${SLIDE_EDIT_PYTHON:-python3}
+# 呼んだ場所のまま動かす（相対パスのデッキを渡せるように）。Repo の直下は PYTHONPATH で足す
+PYTHONPATH="$repo${PYTHONPATH:+:$PYTHONPATH}" exec "$python" -B -m editor.cli "$@"

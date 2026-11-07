@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>請求業務の効率化のご提案</title>
+</head>
+<body>
+<div id="stage" class="sp-target"></div>
+<script src="render.js"></script>
+<script>
+// 商談の提案書の見本。プレイヤーの試験台なので、リンクと段階の仕掛けを一通り入れてある。
+// ID は変えない。途中に足すときは新しい ID を付ける（p03 と p04 の間の p03b がその例）
+window.slideDeck = GenericSlides.createDeck({
+  id: 'proposal',
+  title: '請求業務の効率化のご提案',
+  label: '提案書',
+  home: 'index.html',
+  color: '#0b6bcb',
+  sections: [
+    { id: 'A', title: '現状と課題' },
+    { id: 'B', title: 'ご提案の内容' },
+    { id: 'C', title: '進め方と費用' },
+  ],
+  slides: [
+    { id: 'p01', type: 'title', title: '請求業務の効率化のご提案', subtitle: '経理部の月次処理を、紙と手入力から解放する',
+      minutes: 1,
+      notes: '冒頭のあいさつ。今日の目的は、現状の課題を確かめて、解決の進め方に合意をいただくこと。全体で約15分。' },
+
+    { id: 'p02', type: 'bullets', section: 'A', title: 'いまの請求業務の課題', minutes: 2,
+      items: [
+        '請求書を紙で受け取り、手で入力している',
+        { text: '月末に処理が集中し、残業が増えている', at: 1 },
+        { text: '入力の誤りの確認に、毎月2日かかっている', at: 2 },
+      ],
+      notes: '1つずつ出して、現場の実感を確かめる。「月末の残業」のところで、お客様の実際の人数と時間を聞く。' },
+
+    { id: 'p03', type: 'bullets', section: 'A', title: '課題が続いた場合の影響', minutes: 2,
+      items: [
+        '支払の遅れで、取引先との信頼に影響する',
+        '確認作業に人手がかかり、分析の時間が取れない',
+        '担当者が休むと、処理が止まる',
+      ],
+      notes: '影響の大きさは、お客様の数字に置き換えて話す。この行の <b>太字にならない</b> は、タグがそのまま見えるかの確認用。' },
+
+    // あとから足したスライド（p03 と p04 の間）
+    { id: 'p03b', type: 'two', section: 'A', title: '他社の事例（補足）', minutes: 2,
+      left: { heading: '導入前', items: ['入力は手作業', '処理に5日'] },
+      right: { heading: '導入後', items: [{ text: '取り込みは自動', at: 1 }, { text: '処理は2日', at: 1 }] },
+      notes: '同じ規模の会社の例。導入後は右の列を段階で出す。数字は事例の公開資料による。' },
+
+    { id: 'p04', type: 'bullets', section: 'B', title: 'ご提案する仕組み', minutes: 3,
+      items: [
+        '請求書の読み取りと入力を自動にします（[[導入後の進め方]]）',
+        '注文書との照らし合わせも自動にします（[[用語：突合]]）',
+        '既存の会計ソフトに、そのまま連携できます（[[製品の紹介ページ]]）',
+        '同じ形の事例は[[事例の資料]]にまとめています',
+        '試用版の準備はコマンド1つです：[[準備のコマンド]]',
+      ],
+      links: [
+        { label: '導入後の進め方', kind: 'jump', target: 'p07' },
+        { label: '事例の資料', kind: 'jump', target: 'minimal.html#m1' },
+        { label: '製品の紹介ページ', kind: 'external', target: 'https://example.com/' },
+        { label: '用語：突合', kind: 'more', title: '突合とは', text: '請求書と注文書・納品書を照らし合わせて、金額や数量が合っているかを確かめる作業。' },
+        { label: '準備のコマンド', kind: 'copy', text: 'npm install' },
+      ],
+      notes: '各リンクの先：進め方（p07）、事例（別のページ）、製品の紹介（外部）、用語の補足、試用版のコマンド。' },
+
+    { id: 'p05', type: 'bullets', section: 'B', title: '導入の効果', minutes: 2,
+      items: [
+        '月次の処理が5日から2日に短くなります',
+        { text: '入力の誤りが減り、確認の手間も減ります', at: 1 },
+        { text: '課題の一覧は[[現状の課題]]に戻って確かめられます', at: 2 },
+        { text: '浮いた時間で、支払の分析に取り組めます', at: 3 },
+      ],
+      links: [{ label: '現状の課題', kind: 'jump', target: 'p02' }],
+      notes: '3つ目の項目（課題へのリンク）は、段階2から見える。見えるまで押せない。' },
+
+    // p06 は、リンクの変わった場合の確認用（ノートは付けない）
+    { id: 'p06', type: 'bullets', section: 'C', title: '費用と補足の資料', minutes: 1,
+      items: [
+        '旧版の見積書：[[旧版の見積書]]',
+        'お申し込み：[[お申し込みの画面]]',
+        { text: '参考資料', link: 9 },
+      ],
+      links: [
+        { label: '最初の画面に戻る', kind: 'jump', target: 'p01' },                      // スライドの上に場所がない
+        { label: '旧版の見積書', kind: 'jump', target: 'p99' },                          // このデッキにない ID（壊れたリンク）
+        { label: 'お申し込みの画面', kind: 'jump', target: 'javascript:alert(1)' },      // 許可しない種類
+      ] },
+
+    { id: 'p07', type: 'two', section: 'C', title: '導入後の進め方', minutes: 2,
+      left: { heading: '1か月目', items: ['現状の確認', '試験用の設定'] },
+      right: { heading: '2〜3か月目', items: ['本番への切り替え', '運用の定着'] } },
+
+    { id: 'p08', type: 'title', title: 'ご検討をお願いします', subtitle: '不明な点は、次回までにお知らせください',
+      minutes: 1 },
+  ],
+});
+</script>
+<script src="../../player/player.js"></script>
+</body>
+</html>

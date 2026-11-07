@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>最小の見本</title>
+</head>
+<body>
+<div id="stage" class="sp-target"></div>
+<script src="render.js"></script>
+<script>
+// いちばん小さいデッキ：スライド1枚。home・sections・ノート・リンクがない
+window.slideDeck = GenericSlides.createDeck({
+  id: 'minimal',
+  title: '最小の見本',
+  slides: [
+    { id: 'm1', type: 'title', title: '最小の見本', subtitle: 'スライドが1枚だけのデッキ' },
+  ],
+});
+</script>
+<script src="../../player/player.js"></script>
+</body>
+</html>

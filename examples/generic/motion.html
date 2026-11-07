@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>問い合わせ対応を見直すご提案</title>
+</head>
+<body>
+<div id="stage" class="sp-target"></div>
+<script src="render.js"></script>
+<script>
+// 動きの層の見本。架空の題材で、数字も見本。
+// 動きの層の試験台なので、部品（points・bars・stat・flow）と段階・リンクを一通り入れてある。ID と並びは試験が使うので変えない
+window.slideDeck = GenericSlides.createDeck({
+  id: 'motion',
+  title: '問い合わせ対応を見直すご提案',
+  label: '動きの見本',
+  color: '#1f3864',
+  motion: { send: true, entry: 'bounce', point: true },
+  sections: [
+    { id: 'A', title: 'いまの問い合わせ' },
+    { id: 'B', title: '見直しの進め方' },
+  ],
+  slides: [
+    { id: 'm01', type: 'title', title: '問い合わせ対応を見直すご提案', subtitle: '同じ質問への回答を減らし、担当者の時間を取り戻す',
+      minutes: 1, notes: '冒頭。今日は、問い合わせの現状と、AIで下書きを作る進め方を見てもらう。' },
+
+    { id: 'm02', type: 'points', section: 'A', title: '問い合わせの対応で、困っていること', minutes: 2,
+      items: [
+        { text: '同じ質問が何度も来る', sub: '手順や規程の場所を聞く質問が多い' },
+        { text: '答えられる人が限られている', sub: '詳しい人に質問が集まる' },
+        { text: '回答の記録が残らない', sub: '同じ説明を毎回やり直している', step: 1 },
+      ],
+      notes: '3つ目は段階1で出す。記録が残らないことが、くり返しの原因になっている。' },
+
+    { id: 'm03', type: 'bars', section: 'A', title: '問い合わせの4割は、同じ質問のくり返し', minutes: 1.5, max: 100,
+      items: [
+        { label: 'くり返しの質問', value: 40, display: '40%' },
+        { label: '個別の相談', value: 35, display: '35%' },
+        { label: 'そのほか', value: 25, display: '25%' },
+      ],
+      notes: '見本の数字。棒の長さは値から計算している。' },
+
+    { id: 'm04', type: 'stat', section: 'A', title: '1か月の問い合わせは3,200件', minutes: 1,
+      items: [
+        { value: '3,200件', label: '1か月の問い合わせ', sub: '見本の数字' },
+        { value: '12分', label: '1件にかかる時間', sub: '見本の数字' },
+      ],
+      notes: '件数と時間をかけると、担当者の時間がどれだけ取られているかが分かる。' },
+
+    { id: 'm05', type: 'flow', section: 'B', title: 'AIが下書きを作り、担当者が確かめて送る', minutes: 2,
+      rows: [{
+        nodes: [{ t: '社員の質問', s: 'チャットで届く' }, { t: 'AIの下書き', s: '規程と過去の回答から作る' }, { t: '担当者が確認', s: '直してから送る' }],
+        arrows: [{ text: '受け付け' }, { text: '確認へ' }],
+      }],
+      notes: 'AIは下書きまで。送るのは担当者。' },
+
+    { id: 'm06', type: 'bullets', section: 'B', title: '3か月の試行で、効果を数字で確かめる', minutes: 2,
+      items: [
+        '回答までの時間を、試行の前と後で比べる',
+        '担当者の作業の時間を記録する',
+        'くわしい流れは[[流れの図]]へ。[[下書き]]の意味も確かめる',
+      ],
+      links: [
+        { label: '流れの図', kind: 'jump', target: 'm05' },
+        { label: '下書き', kind: 'more', title: '下書き', text: 'AIが作る回答の案。担当者が確かめてから送る。' },
+      ],
+      notes: '最後に、何を測るかを決めてもらう。' },
+  ],
+});
+</script>
+<script src="../../player/player.js"></script>
+</body>
+</html>

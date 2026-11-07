@@ -1,0 +1,7 @@
+__pycache__/
+.DS_Store
+.editor/
+.superpowers/
+.venv/
+.pytest_cache/
+pytest-tmp/

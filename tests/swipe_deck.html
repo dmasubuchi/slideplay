@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>指で払う操作の試験の見本</title>
+<style>
+.sp-target { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #f5f7fa; font: 40px sans-serif; }
+</style>
+</head>
+<body>
+<div id="stage" class="sp-target"></div>
+<script>
+// 指で払う操作の試験用のデッキ（tests/test_swipe.py）。s1 に、払いの扱う所・扱わない所を一通り置く：
+//   #biglink：大きなリンクの箱（data-link。スライドの大半を占める）／#field：入力欄／#wide：横にスクロールできる枠／#tall：縦にスクロールできる枠
+//   #text：選べる文字／#blank：何もない所（背景）。s1 は段階が2つ、s2 は1つ、s3 は段階なし。ノートは全部のスライドで長い（縦にスクロールする）
+const LONG_NOTES = Array.from({ length: 200 }, (_, i) => `ノートの ${i + 1} 行目`).join('\n');
+window.slideDeck = {
+  contract: 1,
+  info: {
+    id: 'swipe',
+    title: '払いの見本',
+    slides: [
+      { id: 's1', title: '払いの見本', steps: 2, notes: LONG_NOTES, links: [{ label: '大きなリンク', kind: 'jump', target: 's3' }] },
+      { id: 's2', title: '2枚目', steps: 1, notes: LONG_NOTES },
+      { id: 's3', title: '3枚目', steps: 0, notes: LONG_NOTES },
+    ],
+  },
+  render(ref, step, target) {
+    const id = typeof ref === 'string' ? ref : this.info.slides[ref].id;
+    if (id !== 's1') { target.innerHTML = `<div id="blank" style="position:absolute;inset:0;padding:80px">${id}</div>`; return; }
+    target.innerHTML = `
+      <div id="blank" style="position:absolute;inset:0"></div>
+      <div id="biglink" data-link="0" style="position:absolute;left:80px;top:80px;width:1100px;height:420px;background:#cfe0f5">大きなリンク</div>
+      <input id="field" style="position:absolute;left:1300px;top:100px;width:500px;height:90px;font-size:40px">
+      <div id="wide" style="position:absolute;left:80px;top:620px;width:900px;height:200px;overflow-x:auto;background:#eee"><div style="width:4000px;height:100px">横に長い</div></div>
+      <div id="tall" style="position:absolute;left:1100px;top:360px;width:700px;height:300px;overflow-y:auto;background:#ddd"><div style="height:2000px">縦に長い</div></div>
+      <p id="text" style="position:absolute;left:1100px;top:760px;margin:0">選べる文字の見本</p>`;
+  },
+};
+</script>
+<script src="../player/player.js"></script>
+</body>
+</html>

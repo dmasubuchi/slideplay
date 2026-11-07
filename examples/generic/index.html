@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>汎用の見本</title>
+</head>
+<body>
+<script>
+// 目次の見本（CONTRACT.md §4）。デッキ2つと、デッキではないページ1つ
+window.slideCatalog = {
+  contract: 1,
+  title: '汎用の見本',
+  lead: '商談の提案書など、講座でない中身の見本',
+  decks: [
+    { id: 'proposal', href: 'proposal.html', label: '提案書', title: '請求業務の効率化のご提案', color: '#0b6bcb',
+      items: ['現状と課題', 'ご提案の内容', '進め方と費用'], meta: '9枚・約16分' },
+    { id: 'minimal', href: 'minimal.html', title: '最小の見本', meta: '1枚' },
+    { id: 'handout', kind: 'page', href: 'handout.html', title: '配布用の資料' },
+  ],
+};
+</script>
+<script src="../../player/player.js"></script>
+</body>
+</html>
