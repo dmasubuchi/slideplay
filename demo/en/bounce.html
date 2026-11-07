@@ -12,7 +12,7 @@
 // slideplay by the numbers (English version; the Japanese version is demo/ja/bounce.html).
 // It chooses the bounce entry style at deck level (info.motion, CONTRACT.md 2.2). render.js already marks stat
 // values with data-sp-role="count", so the numbers count up from 0 when a slide appears.
-// The numbers were counted from the repository at v1.6 (see the notes of each slide). Do not change slide IDs.
+// The numbers were counted from the repository at the commit that contains this demo (the notes of each slide say how). Do not change slide IDs.
 window.slideDeck = GenericSlides.createDeck({
   id: 'bounce',
   title: 'slideplay by the numbers',
@@ -27,33 +27,33 @@ window.slideDeck = GenericSlides.createDeck({
   ],
   slides: [
     { id: 'b01', type: 'title', title: 'slideplay by the numbers', subtitle: 'Counted from the repository itself', minutes: 0.5,
-      notes: 'The bounce entry style: titles blur in, list items and cards rise, bars grow, stat cards pop and their numbers count up from 0. Press Down to see it on each slide. All numbers are as of v1.6 and were counted from the repository. The player\'s own UI text (help panel, buttons) is Japanese for now.' },
+      notes: 'The bounce entry style: titles blur in, list items and cards rise, bars grow, stat cards pop and their numbers count up from 0. Press Down to see it on each slide. All numbers were counted from the repository at the commit that contains this demo. The player\'s own UI text (help panel, buttons) is Japanese for now.' },
 
     { id: 'b02', type: 'stat', section: 'A', title: 'The player is a single file', minutes: 1,
       items: [
         { value: '4,379', label: 'lines', sub: 'player/player.js' },
-        { value: '267', label: 'KB', sub: '273,167 bytes' },
+        { value: '273', label: 'KB', sub: '273,167 bytes' },
         { value: '0', label: 'dependencies', sub: 'no build step, no CDN' },
       ],
-      notes: 'As of v1.6. Lines: wc -l player/player.js = 4,379. Size: wc -c = 273,167 bytes, which is 266.8 KiB, shown as 267 KB. Dependencies: none (README: no build step, no CDN).' },
+      notes: 'Counted at the commit that contains this demo. Lines: wc -l player/player.js = 4,379. Size: wc -c = 273,167 bytes, which is 273.2 KB (1 KB = 1,000 bytes), shown as 273. Dependencies: none (README: no build step, no CDN).' },
 
-    { id: 'b03', type: 'bars', section: 'A', title: 'Lines of code by area', minutes: 1, max: 15617,
+    { id: 'b03', type: 'bars', section: 'A', title: 'The five biggest folders, by lines', minutes: 1, max: 15824,
       items: [
-        { label: 'tests/', value: 15617, display: '15617' },
+        { label: 'tests/', value: 15824, display: '15824' },
         { label: 'player/', value: 4379, display: '4379' },
         { label: 'editor/', value: 1860, display: '1860' },
+        { label: 'demo/', value: 634, display: '634' },
         { label: 'examples/', value: 546, display: '546' },
-        { label: 'CONTRACT.md', value: 223, display: '223' },
       ],
-      notes: 'As of v1.6. Newline counts of the 70 files tracked by git at v1.6 (git ls-tree -r HEAD), added up per top-level folder; CONTRACT.md is a single file. Bar length is value / 15,617.' },
+      notes: 'Counted at the commit that contains this demo. Newline counts (like wc -l) of the 81 files listed by git ls-files, added up per top-level folder; these are the five folders with the most lines (then README.md 249, README.ja.md 243, CONTRACT.md 223). Bar length is value / 15,824. The numbers are written without commas to fit the column.' },
 
-    { id: 'b04', type: 'stat', section: 'B', title: '1,189 tests', minutes: 1,
+    { id: 'b04', type: 'stat', section: 'B', title: '1,209 tests', minutes: 1,
       items: [
-        { value: '1,145', label: 'regular', sub: 'pytest -m "not webkit"' },
+        { value: '1,165', label: 'regular', sub: 'pytest -m "not webkit"' },
         { value: '44', label: 'WebKit', sub: 'reference only, optional' },
-        { value: '1,189', label: 'in total', sub: 'pytest --collect-only' },
+        { value: '1,209', label: 'in total', sub: 'pytest --collect-only -m ""' },
       ],
-      notes: 'As of v1.6. python3 -m pytest --collect-only -q -m "not webkit" collects 1,145 (44 deselected); -m webkit collects 44; -m "" collects 1,189. The WebKit tests are a reference and do not decide whether the work is done.' },
+      notes: 'Counted at the commit that contains this demo (the tests of this demo are included). python3 -m pytest --collect-only -q -m "not webkit" collects 1,165 (44 deselected); -m webkit collects 44; -m "" collects 1,209. The default in pytest.ini is -m "not webkit", so the total needs -m "". The WebKit tests are a reference and do not decide whether the work is done.' },
 
     { id: 'b05', type: 'bars', section: 'B', title: 'Tests per file: the top five', minutes: 1, max: 115,
       items: [
@@ -63,7 +63,7 @@ window.slideDeck = GenericSlides.createDeck({
         { label: 'player_core', value: 74, display: '74' },
         { label: 'catalog', value: 63, display: '63' },
       ],
-      notes: 'As of v1.6. From pytest --collect-only -q -m "" (all 1,189 tests), counted per file; the labels are tests/test_<name>.py. 34 test files in all.' },
+      notes: 'Counted at the commit that contains this demo. From pytest --collect-only -q -m "" (all 1,209 tests), counted per file; the labels are tests/test_<name>.py. 35 test files contain tests.' },
 
     { id: 'b06', type: 'stat', section: 'C', title: 'The contract is small', minutes: 1,
       items: [
@@ -72,7 +72,7 @@ window.slideDeck = GenericSlides.createDeck({
         { value: '10', label: 'letter keys', sub: 'O H N F L P T M D E' },
         { value: '3', label: 'saved', sub: 'settings, places, memos' },
       ],
-      notes: 'As of v1.6. Sections: the "##" headings of CONTRACT.md, sections 0 to 6 (7). Slide types: the types examples/generic/render.js can draw: title, bullets, two, points, stat, bars, flow (7). Letter keys: the letters listed in section 5 (O, H, N, F, L, P, T, M, D, E; 10). Saved: section 3.2 says the player stores only three things: settings, recent places and memos.' },
+      notes: 'Counted at the commit that contains this demo. Sections: the "##" headings of CONTRACT.md, sections 0 to 6 (7). Slide types: the types examples/generic/render.js can draw: title, bullets, two, points, stat, bars, flow (7). Letter keys: the letters listed in section 5 (O, H, N, F, L, P, T, M, D, E; 10). Saved: section 3.2 says the player stores only three things: settings, recent places and memos.' },
 
     { id: 'b07', type: 'flow', section: 'C', title: 'How a number counts up', minutes: 2,
       rows: [
@@ -91,7 +91,7 @@ window.slideDeck = GenericSlides.createDeck({
       notes: 'CONTRACT.md 2.6 and 3.2: the count role counts the first number of the text from 0 and then restores the original text. If you move on, change the step, turn motion off or have the OS "reduce motion" setting on, the slide jumps to its final look. Thumbnails, the side view, PDF and ?render always show the plain render result, with no motion.' },
 
     { id: 'b08', type: 'title', title: 'slideplay', subtitle: 'github.com/dmasubuchi/slideplay', minutes: 0.5,
-      notes: 'MIT licensed. https://github.com/dmasubuchi/slideplay . The numbers on these slides are as of v1.6.' },
+      notes: 'MIT licensed. https://github.com/dmasubuchi/slideplay . The numbers on these slides were counted at the commit that contains this demo.' },
   ],
 });
 </script>

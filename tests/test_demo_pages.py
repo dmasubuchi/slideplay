@@ -5,11 +5,14 @@
   meta の枚数が実際の枚数と合う、もう一方の言語の目次へのカードがある
 - デッキ（demo/en・demo/ja の intro・chic・bounce）：lang、読み込みで console・ページの例外が出ない、
   ↓ で全部の段階を歩ける、舞台からはみ出さない、動きの型（chic は subtle、bounce は bounce）、home が実在する
-- README.md（英語）と README.ja.md（日本語）が互いにリンクし、デモの URL と試験の準備の行を持つ
+- README.md（英語）と README.ja.md（日本語）が互いにリンクし、デモの URL と試験の準備の行を持つ。英語の README は、
+  地の文を英語にしつつ、実装が受け付ける日本語の指定値（Editor のページの型）を載せる
+- 紹介のデッキのノートにある Editor の停止コマンドが、path つきで書かれている（`slide-edit stop` は path が必須）
 
 page_session は pageerror を見る。ここでは console の error・warning も集める。
 """
 import re
+import sys
 from contextlib import contextmanager
 from pathlib import Path
 
@@ -18,6 +21,9 @@ import pytest
 from helpers import page_session
 
 REPO = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO))
+
+from editor.convert import DEFAULT_TYPE, TYPES  # noqa: E402
 DEMO_URL = "https://dmasubuchi.github.io/slideplay/"
 LANGS = ["en", "ja"]
 DECKS = ["intro", "chic", "bounce"]
@@ -173,6 +179,29 @@ def test_readmes_link_each_other_and_keep_key_lines():
         assert "python3 -m playwright install chromium" in text
         assert "index.ja.html" in text and "demo/" in text
     assert "Japanese" in en and "CONTRACT.md" in en
-    # 英語の README に日本語の文が混ざっていないこと（見本の名前と、書き出しのファイル名だけは日本語のまま）
-    stripped = en.replace("下書き.md", "").replace("-メモ.md", "").replace("日本語", "")
-    assert re.search(r"[぀-ヿ一-鿿]", stripped) is None
+
+
+def test_readme_keeps_english_prose_and_exact_editor_literals():
+    """英語の README の地の文は英語。日本語が出てよいのは、実装が受け付ける指定値・ファイル名・日本語版への案内だけ。"""
+    en = (REPO / "README.md").read_text(encoding="utf-8")
+    # Editor のページの型：実装が受け付ける文字を、そのまま載せる（英語の名前では受け付けない）
+    for name in TYPES:
+        assert f"`{name}`" in en, f"README.md に型 {name} がない"
+    assert "<!-- _class: 表紙 -->" in en
+    assert f"`{DEFAULT_TYPE}`" in en and "default" in en
+    # 許す日本語：型の名前、見本・書き出しのファイル名、日本語版への案内
+    allowed = [*TYPES, "下書き.md", "-メモ.md", "日本語"]
+    stripped = en
+    for literal in allowed:
+        stripped = stripped.replace(literal, "")
+    leftover = re.findall(r"[^\n]*[\u3040-\u30ff\u4e00-\u9fff][^\n]*", stripped)
+    assert leftover == [], f"英語の README に、許していない日本語がある: {leftover}"
+
+
+@pytest.mark.parametrize("lang", LANGS)
+def test_intro_editor_commands_have_a_path(lang):
+    """slide-edit の open・stop は、どちらも path が必須。ノートの案内がそのまま実行できる。"""
+    text = deck_path(lang, "intro").read_text(encoding="utf-8")
+    assert "scripts/slide-edit open examples/editor" in text
+    assert "scripts/slide-edit stop examples/editor" in text
+    assert re.search(r"slide-edit (open|stop)(?! examples/editor)", text) is None

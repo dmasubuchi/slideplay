@@ -2,7 +2,7 @@
 
 English | [日本語](README.ja.md)
 
-Demo: <https://dmasubuchi.github.io/slideplay/> (a Japanese catalog is at <https://dmasubuchi.github.io/slideplay/index.ja.html>). The demo has three decks about slideplay itself, one per motion style, in English and Japanese, plus the sample decks from `examples/generic/`.
+Demo: <https://dmasubuchi.github.io/slideplay/> (a Japanese catalog is at <https://dmasubuchi.github.io/slideplay/index.ja.html>). The demo has three decks about slideplay itself, in English and Japanese: an introduction, a quiet deck that uses the subtle motion style, and a numbers deck that uses the bounce motion style. It also has the sample decks from `examples/generic/`.
 
 slideplay is a dependency-free, single-file HTML slide player. A deck is an ordinary HTML page that defines `window.slideDeck` (a list of slides and a `render` function) and loads `player/player.js`. The player adds navigation, steps, an overview, notes, links, memos, drawing, PDF export and a table of contents. It works from `file://`, with no build step and no CDN. MIT licensed.
 
@@ -192,7 +192,8 @@ scripts/slide-edit stop examples/editor
 - When you save in your editor, the slide, step and drawings you were looking at stay as they are while the stage is redrawn. A syntax error appears in a red strip with the line and the message, and the stage stays as it was. Fix it and the strip disappears.
 - Click text on the stage to edit it in place. Enter confirms, Tab goes to the next text, Esc cancels. Cmd+B makes it bold, and "A+ larger" makes it larger (in Markdown these are `**...**` and `++...++`; `==...==` highlights).
 - Edits are collected, and "Apply" writes them to the Markdown in one go. Save in your editor before you apply. The first "Apply" adds `<!-- id: pN -->` to every page that has no id.
-- The syntax is shown in `examples/editor/下書き.md` (a Japanese sample): `---` separates pages, `<!-- _class: ... -->` picks a page type (cover, normal, two columns, figure with text, emphasis), `*` bullets appear step by step, and any other HTML comment becomes the notes.
+- The syntax is shown in `examples/editor/下書き.md` (a Japanese sample): `---` separates pages, `*` bullets appear step by step, and any other HTML comment becomes the notes.
+- `<!-- _class: 表紙 -->` picks the page type. The type names are Japanese and must be written exactly like this: `表紙` (cover), `ふつう` (normal, the default), `二段` (two columns), `図と文` (figure with text) and `強調` (emphasis). Any other value, including an English name such as `cover`, gives a warning and the page is drawn as `ふつう`.
 - `<deck>/.editor/` (`server.json` holds a key) must not be published. It is in `.gitignore`.
 
 ## `?render`
