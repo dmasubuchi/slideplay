@@ -37,7 +37,8 @@ a { color: var(--link); }
 h1 { margin: 0; font-size: clamp(2.2rem, 9vw, 3.2rem); line-height: 1.1; letter-spacing: -0.02em; }
 .lang a { display: inline-block; padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px;
   color: var(--fg); text-decoration: none; font-size: 0.95rem; }
-.tagline { margin: 10px 0 20px; font-size: 1.15rem; color: var(--muted); }
+.version { margin: 8px 0 0; color: var(--muted); font-size: 0.95rem; }
+.tagline { margin: 6px 0 20px; font-size: 1.15rem; color: var(--muted); }
 .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 0; }
 .button { display: inline-block; padding: 13px 22px; border-radius: 10px; background: var(--btn-bg); color: var(--btn-fg);
   font-weight: 600; font-size: 1.05rem; text-decoration: none; }
@@ -81,6 +82,7 @@ pre code { padding: 0; background: none; font-size: inherit; overflow-wrap: norm
 <h1>slideplay</h1>
 <p class="lang"><a href="index.html" hreflang="en" lang="en">English</a></p>
 </div>
+<p class="version">バージョン 0.1.0</p>
 <p class="tagline">1ファイルの HTML スライドプレイヤー。依存なし・ビルドなし・file:// で動く。</p>
 <p class="cta"><a class="button" href="catalog.ja.html">スライドの目次を開く</a> <a class="ghost" href="https://github.com/dmasubuchi/slideplay">GitHub のリポジトリ</a></p>
 <p class="eyebrow">slideplay で作った、slideplay の紹介のデッキ</p>
@@ -190,10 +192,11 @@ window.slideDeck = {
 </section>
 <section id="deck-format">
 <h2>デッキの形</h2>
+<p>デッキと目次は <code>contract: 1</code> を宣言する。これはデッキの形の番号で、slideplay の版ではない。既存のデッキが動かなくなる形の変更をしたときだけ 2 に上がる。人に伝える版は、この README の冒頭にあるバージョン。セマンティックバージョニングに沿っていて、CONTRACT.md の §6 と <code>player/player.js</code> の1行目にも書いてある。</p>
 <p>詳しい決まりは <a href="https://github.com/dmasubuchi/slideplay/blob/main/CONTRACT.md">CONTRACT.md</a>。ここでは要点だけ。</p>
 <p><code>window.slideDeck</code>（<code>player.js</code> を読み込む前に定義する）：</p>
 <pre tabindex="0"><code class="language-js">window.slideDeck = {
-  contract: 1,
+  contract: 1,            // デッキの形の番号（slideplay の版ではない）
   info: {
     id: "ch-01",          // デッキの ID（目次の中で一意）
     title: "導入の概要",
@@ -327,7 +330,7 @@ scripts/slide-edit          Editor を開く・止める
 scripts/motion_preview.py   動きの層の見本を「動きなし」と並べる道具
 scripts/build_portal.py     README から index.html・index.ja.html を作る
 tests/                      pytest の試験（Playwright）
-CONTRACT.md                 中身とプレイヤーの約束（v1.6。日本語）
+CONTRACT.md                 中身とプレイヤーの約束（日本語）
 README.md                   英語の説明
 README.ja.md                この文書（日本語の説明）
 LICENSE                     MIT

@@ -2,6 +2,8 @@
 
 English | [日本語](README.ja.md)
 
+Version 0.1.0
+
 Demo and introduction: <https://dmasubuchi.github.io/slideplay/> (Japanese: <https://dmasubuchi.github.io/slideplay/index.ja.html>). That page has the content of this README and links to the slide catalog, <https://dmasubuchi.github.io/slideplay/catalog.html> (Japanese: <https://dmasubuchi.github.io/slideplay/catalog.ja.html>). The demo has three decks about slideplay itself, in English and Japanese: an introduction, a quiet deck that uses the subtle motion style, and a numbers deck that uses the bounce motion style. It also has the sample decks from `examples/generic/`.
 
 slideplay is a dependency-free, single-file HTML slide player. A deck is an ordinary HTML page that defines `window.slideDeck` (a list of slides and a `render` function) and loads `player/player.js`. The player adds navigation, steps, an overview, notes, links, memos, drawing, PDF export and a table of contents. It works from `file://`, with no build step and no CDN. MIT licensed.
@@ -97,13 +99,15 @@ The samples are opened from `examples/generic/index.html` (a catalog). They are 
 
 ## The deck format
 
+A deck and a catalog declare `contract: 1`. That is the number of the deck format, not the version of slideplay: it becomes 2 only if the format changes in a way that breaks existing decks. The version to cite is the product version at the top of this README. It follows semantic versioning and is also written in CONTRACT.md section 6 and on the first line of `player/player.js`.
+
 The full rules are in [CONTRACT.md](CONTRACT.md) (in Japanese). In short:
 
 `window.slideDeck` (define it before loading `player.js`):
 
 ```js
 window.slideDeck = {
-  contract: 1,
+  contract: 1,            // the deck format number (not the product version)
   info: {
     id: "ch-01",          // the deck's id (unique within a catalog)
     title: "Overview",
@@ -241,7 +245,7 @@ scripts/slide-edit          opens and stops the Editor
 scripts/motion_preview.py   compares motion choices with a "no motion" version
 scripts/build_portal.py     builds index.html and index.ja.html from the READMEs
 tests/                      pytest tests (Playwright)
-CONTRACT.md                 the contract between a deck and the player (v1.6, in Japanese)
+CONTRACT.md                 the contract between a deck and the player (in Japanese)
 README.md                   this file
 README.ja.md                the same, in Japanese
 LICENSE                     MIT

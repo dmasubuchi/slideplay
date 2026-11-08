@@ -31,29 +31,29 @@ window.slideDeck = GenericSlides.createDeck({
 
     { id: 'b02', type: 'stat', section: 'A', title: 'プレイヤーは1ファイル', minutes: 1,
       items: [
-        { value: '4,379', label: '行', sub: 'player/player.js' },
-        { value: '273', label: 'KB', sub: '273,167 バイト' },
+        { value: '4,380', label: '行', sub: 'player/player.js' },
+        { value: '273', label: 'KB', sub: '273,186 バイト' },
         { value: '0', label: '依存', sub: 'ビルドも CDN もなし' },
       ],
-      notes: 'このデモを含むコミットで数えた。行数：wc -l player/player.js が 4,379。大きさ：wc -c が 273,167 バイト、273.2 KB（1 KB を 1,000 バイトとして）を 273 と表示。依存：なし（README：ビルドも CDN もなし）。' },
+      notes: 'このデモを含むコミットで数えた。行数：wc -l player/player.js が 4,380。大きさ：wc -c が 273,186 バイト、273.2 KB（1 KB を 1,000 バイトとして）を 273 と表示。依存：なし（README：ビルドも CDN もなし）。' },
 
-    { id: 'b03', type: 'bars', section: 'A', title: '行数の多いフォルダー、上位5つ', minutes: 1, max: 16177,
+    { id: 'b03', type: 'bars', section: 'A', title: '行数の多いフォルダー、上位5つ', minutes: 1, max: 16290,
       items: [
-        { label: 'tests/', value: 16177, display: '16177' },
-        { label: 'player/', value: 4379, display: '4379' },
+        { label: 'tests/', value: 16290, display: '16290' },
+        { label: 'player/', value: 4380, display: '4380' },
         { label: 'editor/', value: 1860, display: '1860' },
         { label: 'demo/', value: 634, display: '634' },
-        { label: 'scripts/', value: 551, display: '551' },
+        { label: 'scripts/', value: 561, display: '561' },
       ],
-      notes: 'このデモを含むコミットで数えた。git ls-files が出す84ファイルの改行の数（wc -l と同じ）を、最上位のフォルダーごとに足した。行数の多い上位5つのフォルダー（次は examples/ 546、index.html 349、index.ja.html 343）。棒の長さは値 ÷ 16,177。数字は、欄に収めるためにカンマなしで書いた。' },
+      notes: 'このデモを含むコミットで数えた。git ls-files が出す85ファイルの改行の数（wc -l と同じ）を、最上位のフォルダーごとに足した。行数の多い上位5つのフォルダー（次は examples/ 546、index.html 352、index.ja.html 346）。棒の長さは値 ÷ 16,290。数字は、欄に収めるためにカンマなしで書いた。' },
 
-    { id: 'b04', type: 'stat', section: 'B', title: '試験は1,243本', minutes: 1,
+    { id: 'b04', type: 'stat', section: 'B', title: '試験は1,276本', minutes: 1,
       items: [
-        { value: '1,199', label: '通常', sub: 'pytest -m "not webkit"' },
+        { value: '1,232', label: '通常', sub: 'pytest -m "not webkit"' },
         { value: '44', label: 'WebKit', sub: '参考。入れなくてもよい' },
-        { value: '1,243', label: '合計', sub: 'pytest --collect-only -m ""' },
+        { value: '1,276', label: '合計', sub: 'pytest --collect-only -m ""' },
       ],
-      notes: 'このデモを含むコミットで数えた（このデモの試験も入る）。python3 -m pytest --collect-only -q -m "not webkit" が 1,199 本（44 本を除外）、-m webkit が 44 本、-m "" が 1,243 本。pytest.ini の既定が -m "not webkit" なので、合計には -m "" が要る。WebKit の試験は参考で、失敗しても完成の条件ではない。' },
+      notes: 'このデモを含むコミットで数えた（このデモの試験も入る）。python3 -m pytest --collect-only -q -m "not webkit" が 1,232 本（44 本を除外）、-m webkit が 44 本、-m "" が 1,276 本。pytest.ini の既定が -m "not webkit" なので、合計には -m "" が要る。WebKit の試験は参考で、失敗しても完成の条件ではない。' },
 
     { id: 'b05', type: 'bars', section: 'B', title: 'ファイルごとの試験数、上位5つ', minutes: 1, max: 115,
       items: [
@@ -63,7 +63,7 @@ window.slideDeck = GenericSlides.createDeck({
         { label: 'player_core', value: 74, display: '74' },
         { label: 'catalog', value: 63, display: '63' },
       ],
-      notes: 'このデモを含むコミットで数えた。pytest --collect-only -q -m ""（1,243本すべて）をファイルごとに数えた。名前は tests/test_<名前>.py。試験が入っているファイルは35。' },
+      notes: 'このデモを含むコミットで数えた。pytest --collect-only -q -m ""（1,276本すべて）をファイルごとに数えた。名前は tests/test_<名前>.py。試験が入っているファイルは36。' },
 
     { id: 'b06', type: 'stat', section: 'C', title: '約束は小さい', minutes: 1,
       items: [
@@ -91,7 +91,7 @@ window.slideDeck = GenericSlides.createDeck({
       notes: 'CONTRACT.md 2.6 と 3.2：count の役目は、文字の最初の数を 0 から数え、終わったら元の文字に戻す。先へ進む・段階を変える・動きを止める・OS の「視差効果を減らす」のときは、動き終わりの姿になる。縮小一覧・一覧つきの画面・PDF・?render は、いつも素の render の結果で、動かさない。' },
 
     { id: 'b08', type: 'title', title: 'slideplay', subtitle: 'github.com/dmasubuchi/slideplay', minutes: 0.5,
-      notes: 'MIT ライセンス。https://github.com/dmasubuchi/slideplay 。このデッキの数字は、すべてこのデモを含むコミットで数えたもの。' },
+      notes: 'MIT ライセンス。slideplay バージョン 0.1.0。https://github.com/dmasubuchi/slideplay 。このデッキの数字は、すべてこのデモを含むコミットで数えたもの。' },
   ],
 });
 </script>

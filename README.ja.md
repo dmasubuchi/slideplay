@@ -2,6 +2,8 @@
 
 [English](README.md) | 日本語
 
+バージョン 0.1.0
+
 デモと紹介：<https://dmasubuchi.github.io/slideplay/>（日本語は <https://dmasubuchi.github.io/slideplay/index.ja.html>）。この README の内容と、スライドの目次へのリンクが載っている。スライドの目次は <https://dmasubuchi.github.io/slideplay/catalog.ja.html>（英語は <https://dmasubuchi.github.io/slideplay/catalog.html>）で、このプレイヤーで動く紹介のデッキと見本が並ぶ
 
 slideplay は、HTML のスライドを、同じ操作で発表・閲覧できる共通のプレイヤー。1ファイル（`player/player.js`）・依存なし・CSS 込み・`file://` で動く。
@@ -92,13 +94,15 @@ window.slideDeck = {
 
 ## デッキの形
 
+デッキと目次は `contract: 1` を宣言する。これはデッキの形の番号で、slideplay の版ではない。既存のデッキが動かなくなる形の変更をしたときだけ 2 に上がる。人に伝える版は、この README の冒頭にあるバージョン。セマンティックバージョニングに沿っていて、CONTRACT.md の §6 と `player/player.js` の1行目にも書いてある。
+
 詳しい決まりは [CONTRACT.md](CONTRACT.md)。ここでは要点だけ。
 
 `window.slideDeck`（`player.js` を読み込む前に定義する）：
 
 ```js
 window.slideDeck = {
-  contract: 1,
+  contract: 1,            // デッキの形の番号（slideplay の版ではない）
   info: {
     id: "ch-01",          // デッキの ID（目次の中で一意）
     title: "導入の概要",
@@ -235,7 +239,7 @@ scripts/slide-edit          Editor を開く・止める
 scripts/motion_preview.py   動きの層の見本を「動きなし」と並べる道具
 scripts/build_portal.py     README から index.html・index.ja.html を作る
 tests/                      pytest の試験（Playwright）
-CONTRACT.md                 中身とプレイヤーの約束（v1.6。日本語）
+CONTRACT.md                 中身とプレイヤーの約束（日本語）
 README.md                   英語の説明
 README.ja.md                この文書（日本語の説明）
 LICENSE                     MIT

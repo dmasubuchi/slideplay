@@ -25,7 +25,7 @@ window.slideDeck = GenericSlides.createDeck({
     { id: 'D', title: '広げる・確かめる' },
   ],
   slides: [
-    { id: 'i01', type: 'title', title: 'slideplay', subtitle: '1ファイルの HTML スライドプレイヤー',
+    { id: 'i01', type: 'title', title: 'slideplay', subtitle: '1ファイルの HTML スライドプレイヤー（バージョン 0.1.0）',
       minutes: 1,
       notes: 'このデッキ自身が slideplay で動いている。↓ か Space で進む。? を押すと、使えるキーの一覧が出る。動きは、デッキが選んだもの（送り・入場・指す）が効いている。' },
 
@@ -58,7 +58,7 @@ window.slideDeck = GenericSlides.createDeck({
         { text: 'info（id・title・slides）', at: 1 },
         { text: 'render(ref, step, target)', at: 2 },
       ] },
-      notes: '舞台は1920×1080の要素。slideDeck は player.js を読み込む前に定義する。info.slides には、スライドごとに id・title・steps（最後の段階の番号）を書く。render は、ref（位置か id）と step で、描画先 target に描く。詳しい決まりは CONTRACT.md。' },
+      notes: '舞台は1920×1080の要素。slideDeck は player.js を読み込む前に定義する。info.slides には、スライドごとに id・title・steps（最後の段階の番号）を書く。render は、ref（位置か id）と step で、描画先 target に描く。contract: 1 はデッキの形の番号で、slideplay の版ではない。既存のデッキが動かなくなる形の変更をしたときだけ変わる。人に伝える版はプロダクトの版（0.1.0）。詳しい決まりは CONTRACT.md。' },
 
     { id: 'i05', type: 'flow', section: 'B', title: '約束は、この1枚の図で足りる', minutes: 2,
       rows: [

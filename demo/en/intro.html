@@ -26,7 +26,7 @@ window.slideDeck = GenericSlides.createDeck({
     { id: 'D', title: 'Going further' },
   ],
   slides: [
-    { id: 'i01', type: 'title', title: 'slideplay', subtitle: 'A single-file HTML slide player',
+    { id: 'i01', type: 'title', title: 'slideplay', subtitle: 'A single-file HTML slide player, version 0.1.0',
       minutes: 1,
       notes: 'This deck is running on slideplay itself. Press Down or Space to advance, and ? for the key list. The slides and notes are in English; the player\'s own UI text (help panel, buttons, toasts) is Japanese for now. The motion you see is chosen by the deck (send, entry and point layers).' },
 
@@ -59,7 +59,7 @@ window.slideDeck = GenericSlides.createDeck({
         { text: 'info (id, title, slides)', at: 1 },
         { text: 'render(ref, step, target)', at: 2 },
       ] },
-      notes: 'The stage is a 1920 x 1080 element. Define slideDeck before loading player.js. In info.slides each slide has an id, a title and steps (the number of the last step). render draws the slide given by ref (a position or an id) and step into the target element. The full rules are in CONTRACT.md (Japanese).' },
+      notes: 'The stage is a 1920 x 1080 element. Define slideDeck before loading player.js. In info.slides each slide has an id, a title and steps (the number of the last step). render draws the slide given by ref (a position or an id) and step into the target element. contract: 1 is the number of the deck format, not the version of slideplay; it changes only if the format changes in a way that breaks existing decks. The version to cite is the product version, 0.1.0. The full rules are in CONTRACT.md (Japanese).' },
 
     { id: 'i05', type: 'flow', section: 'B', title: 'The contract in one picture', minutes: 2,
       rows: [

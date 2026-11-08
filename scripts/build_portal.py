@@ -54,6 +54,7 @@ PAGES = {
         "hint": "In a deck, press Down or Space to go forward, ? for the key list and H to return to the catalog. The player's own labels are in Japanese for now.",
         "toc": "On this page",
         "readme_note": "Below is README.md, as HTML.",
+        "version_label": "Version",
     },
     "ja": {
         "lang": "ja", "readme": "README.ja.md", "out": "index.ja.html", "catalog": "catalog.ja.html",
@@ -72,6 +73,7 @@ PAGES = {
         "hint": "デッキの中では、↓ か Space で進み、? で操作の一覧、H で目次に戻る。",
         "toc": "このページの内容",
         "readme_note": "以下は README.ja.md の内容。",
+        "version_label": "バージョン",
     },
 }
 
@@ -103,7 +105,8 @@ a { color: var(--link); }
 h1 { margin: 0; font-size: clamp(2.2rem, 9vw, 3.2rem); line-height: 1.1; letter-spacing: -0.02em; }
 .lang a { display: inline-block; padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px;
   color: var(--fg); text-decoration: none; font-size: 0.95rem; }
-.tagline { margin: 10px 0 20px; font-size: 1.15rem; color: var(--muted); }
+.version { margin: 8px 0 0; color: var(--muted); font-size: 0.95rem; }
+.tagline { margin: 6px 0 20px; font-size: 1.15rem; color: var(--muted); }
 .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 0; }
 .button { display: inline-block; padding: 13px 22px; border-radius: 10px; background: var(--btn-bg); color: var(--btn-fg);
   font-weight: 600; font-size: 1.05rem; text-decoration: none; }
@@ -147,6 +150,7 @@ INLINE = re.compile(
     r"|<(?P<auto>https?://[^>\s]+)>"
     r"|\[(?P<text>[^\]]+)\]\((?P<url>[^)\s]+)\)"
 )
+VERSION_LINE = r"^(?:Version|バージョン) (\d+\.\d+\.\d+)$"
 LIST_ITEM = re.compile(r"^( *)- (.*)$")
 HEADING = re.compile(r"^(#{1,3}) (.+)$")
 
@@ -264,12 +268,13 @@ def render_block(block):
 
 
 def split_readme(md):
-    """-> (title, lead blocks, [(heading text, blocks)]). The language switch line and the Demo line at the top
-    are not part of the portal (the top block of the page replaces them); anything else before the first ## is the lead."""
+    """-> (title, version, lead blocks, [(heading text, blocks)]). The language switch line, the Version line and the
+    Demo line at the top are not part of the lead (the top block of the page replaces them); anything else before the
+    first ## is the lead. The version is the x.y.z of the "Version x.y.z" line (the README is the source of the number)."""
     blocks = parse(md)
     if not blocks or blocks[0][:2] != ("h", 1):
         raise ValueError("the README must start with a # title")
-    title, lead, sections, skipped = blocks[0][2], [], [], 0
+    title, lead, sections, skipped, version = blocks[0][2], [], [], 0, None
     for block in blocks[1:]:
         if block[0] == "h":
             if block[1] != 2:
@@ -279,11 +284,15 @@ def split_readme(md):
             sections[-1][1].append(block)
         elif block[0] == "p" and re.match(r"^(English \||\[English\]|Demo|デモ|\[日本語\])", block[1]):
             skipped += 1
+        elif block[0] == "p" and re.match(VERSION_LINE, block[1]):
+            version = re.match(VERSION_LINE, block[1]).group(1)
         else:
             lead.append(block)
     if skipped != 2:
         raise ValueError(f"expected the language line and the Demo line before the first ##, skipped {skipped}")
-    return title, lead, sections
+    if version is None:
+        raise ValueError('the README must have a "Version x.y.z" line before the first ##')
+    return title, version, lead, sections
 
 
 # ---- Page ----
@@ -291,7 +300,7 @@ def split_readme(md):
 def build(lang):
     """The text of the portal page for lang ("en" or "ja")."""
     cfg = PAGES[lang]
-    title, lead, sections = split_readme((ROOT / cfg["readme"]).read_text(encoding="utf-8"))
+    title, version, lead, sections = split_readme((ROOT / cfg["readme"]).read_text(encoding="utf-8"))
     ids = []
     for heading, _ in sections:
         if heading not in SECTION_IDS:
@@ -334,6 +343,7 @@ def build(lang):
 <h1>{esc(title)}</h1>
 <p class="lang"><a href="{sw['href']}" hreflang="{sw['lang']}" lang="{sw['lang']}">{esc(sw['label'])}</a></p>
 </div>
+<p class="version">{esc(cfg['version_label'])} {version}</p>
 <p class="tagline">{esc(cfg['tagline'])}</p>
 <p class="cta"><a class="button" href="{cfg['catalog']}">{esc(cfg['cta'])}</a> <a class="ghost" href="{REPO_URL}">{esc(cfg['repo'])}</a></p>
 <p class="eyebrow">{esc(cfg['eyebrow'])}</p>
